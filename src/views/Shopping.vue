@@ -3,9 +3,9 @@
   <h1>Liste de courses</h1>
 
   <ul>
-    <li v-for="(item, index) in list" :key="item.key">
+    <li v-for="item in list" :key="item.key">
       {{ item.name }} (x{{ item.quantity }})
-      <button @click.prevent="deleteItem(index)">x</button>
+      <button @click.prevent="deleteItem(item.key)">x</button>
     </li>
   </ul>
 
@@ -46,10 +46,8 @@ export default {
     })
   },
   methods: {
-    deleteItem (index) {
-      if (this.list[index]) {
-        this.shoppingDb.child(this.list[index].key).remove()
-      }
+    deleteItem (key) {
+      this.shoppingDb.child(key).remove()
     },
     addItem () {
       let errors = []
