@@ -5,6 +5,7 @@
   <ul>
     <li v-for="item in list" :key="item.key">
       {{ item.name }} (x{{ item.quantity }})
+      <button @click.prevent="updateItem(item.key)">edit</button>
       <button @click.prevent="deleteItem(item.key)">x</button>
     </li>
   </ul>
@@ -31,24 +32,32 @@ export default {
     }
   },
   created () {
-    this.shoppingDb.on('child_added', itemToAdd => {
+    // Add
+    this.shoppingDb.on('child_added', addedItem => {
       this.list.push({
-        ...itemToAdd.val(),
-        key: itemToAdd.key
+        ...addedItem.val(),
+        key: addedItem.key
       })
     })
 
-    this.shoppingDb.on('child_removed', itemToRemove => {
-      const removedItemIndex = this.list.findIndex(item => item.key === itemToRemove.key)
+    // Remove
+    this.shoppingDb.on('child_removed', removedItem => {
+      const removedItemIndex = this.list.findIndex(item => item.key === removedItem.key)
       if (removedItemIndex > -1) {
         this.list.splice(removedItemIndex, 1)
       }
     })
+
+    // Update
+    this.shoppingDb.on('child_changed', changedItem => {
+      var itemToUpdate = this.list.find(item => item.key === changedItem.key)
+      if (itemToUpdate) {
+        itemToUpdate.quantity = changedItem.val().quantity
+        itemToUpdate.name = changedItem.val().name
+      }
+    })
   },
   methods: {
-    deleteItem (key) {
-      this.shoppingDb.child(key).remove()
-    },
     addItem () {
       let errors = []
       if (!this.newItem.name) errors.push('- Votre produit doit avoir un nom')
@@ -64,6 +73,17 @@ export default {
       } else {
         alert(`Action impossible: \n${errors.join('\n')}`)
       }
+    },
+    deleteItem (key) {
+      this.shoppingDb.child(key).remove()
+    },
+    updateItem (key) {
+      const itemToUpdate = this.list.find(item => item.key === key)
+      const newItemVal = {
+        name: prompt('What is it ?', itemToUpdate.name),
+        quantity: prompt('How many ?', itemToUpdate.quantity)
+      }
+      this.shoppingDb.child(key).update(newItemVal)
     }
   }
 }
