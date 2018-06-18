@@ -1,6 +1,6 @@
 <template>
 <div id="shopping">
-  <h1>Liste de courses</h1>
+  <h1 class="is-size-3">Liste de courses</h1>
 
   <ul>
     <li v-for="item in list" :key="item.key">

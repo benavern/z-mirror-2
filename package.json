@@ -8,6 +8,8 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@mdi/font": "^2.4.85",
+    "buefy": "^0.6.6",
     "firebase": "^5.0.4",
     "vue": "^2.5.16",
     "vue-router": "^3.0.1"

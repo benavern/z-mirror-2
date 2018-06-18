@@ -3,8 +3,13 @@ import App from './App.vue'
 import router from './router'
 import firebase from 'firebase/app'
 import 'firebase/database'
+import Buefy from 'buefy'
+import 'buefy/lib/buefy.css'
+import '@mdi/font/css/materialdesignicons.css'
 
-const config = {
+Vue.use(Buefy)
+
+const fireBaseConfig = {
   apiKey: 'AIzaSyB_TZzRnGXSH-xvPS8hpdqXOcnnVhPKeaM',
   authDomain: 'z-mirror-2.firebaseapp.com',
   databaseURL: 'https://z-mirror-2.firebaseio.com',
@@ -13,7 +18,7 @@ const config = {
   messagingSenderId: '721220130430'
 }
 
-Vue.prototype.$firebase = firebase.initializeApp(config).database()
+Vue.prototype.$firebase = firebase.initializeApp(fireBaseConfig).database()
 
 Vue.config.productionTip = false
 
