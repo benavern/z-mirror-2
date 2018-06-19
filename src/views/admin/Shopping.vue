@@ -23,40 +23,19 @@ export default {
   name: 'Shopping',
   data () {
     return {
-      shoppingDb: this.$firebase.ref('shopping'),
-      list: [],
       newItem: {
         quantity: 1,
         name: ''
       }
     }
   },
-  created () {
-    // Add
-    this.shoppingDb.on('child_added', addedItem => {
-      this.list.push({
-        ...addedItem.val(),
-        key: addedItem.key
-      })
-    })
 
-    // Remove
-    this.shoppingDb.on('child_removed', removedItem => {
-      const removedItemIndex = this.list.findIndex(item => item.key === removedItem.key)
-      if (removedItemIndex > -1) {
-        this.list.splice(removedItemIndex, 1)
-      }
-    })
-
-    // Update
-    this.shoppingDb.on('child_changed', changedItem => {
-      var itemToUpdate = this.list.find(item => item.key === changedItem.key)
-      if (itemToUpdate) {
-        itemToUpdate.quantity = changedItem.val().quantity
-        itemToUpdate.name = changedItem.val().name
-      }
-    })
+  computed: {
+    list () {
+      return this.$store.getters['shopping/items']
+    }
   },
+
   methods: {
     addItem () {
       let errors = []
@@ -64,26 +43,26 @@ export default {
       if (this.newItem.quantity <= 0) errors.push('- Il faut une quantité supérieure à 0')
 
       if (!errors.length) {
-        this.shoppingDb.push(this.newItem).then(() => {
-          this.newItem = {
-            quantity: 1,
-            name: ''
-          }
+        this.$store.dispatch('shopping/add', this.newItem).then(() => {
+          this.newItem = { quantity: 1, name: '' }
         })
       } else {
         alert(`Action impossible: \n${errors.join('\n')}`)
       }
     },
+
     deleteItem (key) {
-      this.shoppingDb.child(key).remove()
+      this.$store.dispatch('shopping/remove', key)
     },
+
     updateItem (key) {
       const itemToUpdate = this.list.find(item => item.key === key)
       const newItemVal = {
         name: prompt('What is it ?', itemToUpdate.name),
-        quantity: prompt('How many ?', itemToUpdate.quantity)
+        quantity: prompt('How many ?', itemToUpdate.quantity),
+        key
       }
-      this.shoppingDb.child(key).update(newItemVal)
+      this.$store.dispatch('shopping/change', newItemVal)
     }
   }
 }
