@@ -30,12 +30,20 @@
           </b-table-column>
         </template>
 
-        <template slot="detail" slot-scope="props">
-          <article class="media">
-            <div class="media-content">
-              <pre>{{props.row}}</pre>
+        <template slot="empty">
+          <section class="section">
+            <div class="content has-text-grey has-text-centered">
+              <p>
+                <b-icon
+                    icon="food-fork-drink"
+                    size="is-large">
+                </b-icon>
+              </p>
+
+              <p>La liste est vide...</p>
+              <p>... donc le frigo est plein!</p>
             </div>
-          </article>
+          </section>
         </template>
       </b-table>
     </div>
