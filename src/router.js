@@ -22,12 +22,18 @@ export default new Router({
       children: [
         {
           path: '',
-          component: Index
+          component: Index,
+          meta: {
+            displayName: 'Accueil'
+          }
         },
         {
           path: 'shopping',
           name: 'shopping',
-          component: Shopping
+          component: Shopping,
+          meta: {
+            displayName: 'Liste de courses'
+          }
         }
       ]
     }

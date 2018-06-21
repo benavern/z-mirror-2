@@ -1,20 +1,68 @@
 <template>
 <div id="shopping">
-  <h1 class="is-size-3">Liste de courses</h1>
+  <section class="section">
+    <div class="container">
 
-  <ul>
-    <li v-for="item in list" :key="item.key">
-      {{ item.name }} (x{{ item.quantity }})
-      <button @click.prevent="updateItem(item.key)">edit</button>
-      <button @click.prevent="deleteItem(item.key)">x</button>
-    </li>
-  </ul>
+      <b-table :data="list"
+        striped
+        narrowed
+        :mobile-cards="false">
 
-  <form @submit.prevent="addItem">
-    <input type="text" v-model="newItem.name">
-    <input type="number" v-model="newItem.quantity">
-    <input type="submit" value="Ajouter">
-  </form>
+        <template slot-scope="props">
+          <b-table-column field="quantity" label="Nb" numeric centered width="40">
+            {{ props.row.quantity }}
+          </b-table-column>
+
+          <b-table-column field="name" label="Article">
+            {{ props.row.name }}
+          </b-table-column>
+
+          <b-table-column width="85" label="Actions">
+            <button class="button is-small is-info" @click.prevent="updateItem(props.row.key)">
+              <b-icon icon="pencil" size="is-small"></b-icon>
+            </button>
+
+            &nbsp;
+
+            <button class="button is-small is-danger" @click.prevent="deleteItem(props.row.key)">
+              <b-icon icon="delete" size="is-small"></b-icon>
+            </button>
+          </b-table-column>
+        </template>
+
+        <template slot="detail" slot-scope="props">
+          <article class="media">
+            <div class="media-content">
+              <pre>{{props.row}}</pre>
+            </div>
+          </article>
+        </template>
+      </b-table>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <form @submit.prevent="addItem" class="add-item">
+        <b-field>
+          <b-select placeholder="Nombre" v-model="newItem.quantity">
+            <option v-for="val in createArray(10)"
+              :key="val"
+              :value="val">
+              {{ val }}
+            </option>
+          </b-select>
+
+          <b-input placeholder="Article"
+            v-model="newItem.name"
+            expanded>
+          </b-input>
+        </b-field>
+
+        <input class="button is-fullwidth" type="submit" value="Ajouter">
+      </form>
+    </div>
+  </section>
 </div>
 </template>
 
@@ -63,7 +111,20 @@ export default {
         key
       }
       this.$store.dispatch('shopping/change', newItemVal)
+    },
+    createArray (nb = 0) {
+      return Array.apply(null, {length: nb}).map((val, i) => i + 1)
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+#shopping {
+  /deep/ .add-item {
+    .select{
+      width: 70px;
+    }
+  }
+}
+</style>
