@@ -18,7 +18,7 @@
           </b-table-column>
 
           <b-table-column width="85" label="Actions">
-            <button class="button is-small is-info" @click.prevent="updateItem(props.row.key)">
+            <button class="button is-small is-primary is-outlined" @click.prevent="openModal(props.row)">
               <b-icon icon="pencil" size="is-small"></b-icon>
             </button>
 
@@ -41,7 +41,7 @@
               </p>
 
               <p>La liste est vide...</p>
-              <p>... donc le frigo est plein!</p>
+              <p>... Le frigo est-il plein ?!</p>
             </div>
           </section>
         </template>
@@ -49,40 +49,28 @@
     </div>
   </section>
 
-  <section class="section">
-    <div class="container">
-      <form @submit.prevent="addItem" class="add-item">
-        <b-field>
-          <b-select placeholder="Nombre" v-model="newItem.quantity">
-            <option v-for="val in createArray(10)"
-              :key="val"
-              :value="val">
-              {{ val }}
-            </option>
-          </b-select>
+  <button class="button is-primary is-outlined add-item-button" @click.prevent="openModal()">
+    <b-icon icon="plus"/>
+  </button>
 
-          <b-input placeholder="Article"
-            v-model="newItem.name"
-            expanded>
-          </b-input>
-        </b-field>
-
-        <input class="button is-fullwidth" type="submit" value="Ajouter">
-      </form>
-    </div>
-  </section>
+  <b-modal :active.sync="displayModal" has-modal-card>
+    <shopping-modal :item="modalItem" :mode="modalMode"
+      @submit-add="addItem" @submit-edit="updateItem" />
+  </b-modal>
 </div>
 </template>
 
 <script>
+import shoppingModal from '../../components/admin/shopping/ShoppingModal'
+
 export default {
   name: 'Shopping',
+  components: { shoppingModal },
   data () {
     return {
-      newItem: {
-        quantity: 1,
-        name: ''
-      }
+      modalItem: null,
+      modalMode: 'add',
+      displayModal: false
     }
   },
 
@@ -93,17 +81,11 @@ export default {
   },
 
   methods: {
-    addItem () {
-      let errors = []
-      if (!this.newItem.name) errors.push('- Votre produit doit avoir un nom')
-      if (this.newItem.quantity <= 0) errors.push('- Il faut une quantité supérieure à 0')
-
-      if (!errors.length) {
-        this.$store.dispatch('shopping/add', this.newItem).then(() => {
-          this.newItem = { quantity: 1, name: '' }
+    addItem (item) {
+      if (this.checkItem(item)) {
+        this.$store.dispatch('shopping/add', item).then(() => {
+          this.displayModal = false
         })
-      } else {
-        alert(`Action impossible: \n${errors.join('\n')}`)
       }
     },
 
@@ -111,28 +93,45 @@ export default {
       this.$store.dispatch('shopping/remove', key)
     },
 
-    updateItem (key) {
-      const itemToUpdate = this.list.find(item => item.key === key)
-      const newItemVal = {
-        name: prompt('What is it ?', itemToUpdate.name),
-        quantity: prompt('How many ?', itemToUpdate.quantity),
-        key
+    updateItem (item) {
+      if (this.checkItem(item)) {
+        this.$store.dispatch('shopping/change', item).then(() => {
+          this.displayModal = false
+        })
       }
-      this.$store.dispatch('shopping/change', newItemVal)
     },
-    createArray (nb = 0) {
-      return Array.apply(null, {length: nb}).map((val, i) => i + 1)
+
+    checkItem (item) {
+      let errors = []
+      if (!item.name) errors.push('- Votre produit doit avoir un nom.')
+      // if (item.quantity <= 0) errors.push('- Il faut une quantité supérieure à 0')
+
+      if (errors.length) {
+        alert(`Action impossible: \n${errors.join('\n')}`)
+      }
+      return !errors.length
+    },
+
+    openModal (item) {
+      if (!item) {
+        this.modalItem = { quantity: 1, name: '' }
+        this.modalMode = 'add'
+      } else {
+        this.modalItem = item
+        this.modalMode = 'edit'
+      }
+      this.displayModal = true
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-#shopping {
-  /deep/ .add-item {
-    .select{
-      width: 70px;
-    }
-  }
+.add-item-button {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  width: 3rem;
+  height: 3rem;
 }
 </style>
