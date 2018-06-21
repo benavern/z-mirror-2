@@ -18,13 +18,13 @@
 
     <div :class="['navbar-menu', {'is-active': menuVisible}]" @click="toggleMenu">
       <div class="navbar-end">
-        <router-link to="/admin" class="navbar-item">
-          Administration
-        </router-link>
-
         <router-link to="/admin/shopping" class="navbar-item">
           Liste de courses
         </router-link>
+
+        <div class="navbar-item" @click="logout">
+          Déconnection
+        </div>
       </div>
     </div>
   </div>
@@ -46,6 +46,10 @@ export default {
   methods: {
     toggleMenu () {
       this.menuVisible = !this.menuVisible
+    },
+    logout () {
+      sessionStorage.removeItem('authenticated')
+      this.$router.go('/admin/login')
     }
   }
 }

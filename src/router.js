@@ -5,6 +5,7 @@ import Home from './views/Home.vue'
 
 import Index from './views/admin/Index.vue'
 import Admin from './views/admin/Admin.vue'
+import Login from './views/admin/Login.vue'
 import Shopping from './views/admin/Shopping.vue'
 
 Vue.use(Router)
@@ -24,7 +25,15 @@ export default new Router({
           path: '',
           component: Index,
           meta: {
-            displayName: 'Accueil'
+            displayName: 'Accueil',
+            authentication: true
+          }
+        },
+        {
+          path: 'login',
+          component: Login,
+          meta: {
+            displayName: 'Connection'
           }
         },
         {
@@ -32,7 +41,8 @@ export default new Router({
           name: 'shopping',
           component: Shopping,
           meta: {
-            displayName: 'Liste de courses'
+            displayName: 'Liste de courses',
+            authentication: true
           }
         }
       ]

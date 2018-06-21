@@ -13,6 +13,14 @@ Vue.prototype.$firebase = firebaseDb
 
 Vue.config.productionTip = false
 
+router.beforeEach((to, from, next) => {
+  if (to.meta.authentication && !sessionStorage.getItem('authenticated')) {
+    next({path: '/admin/login', query: { to: to.path }})
+  } else {
+    next()
+  }
+})
+
 new Vue({
   router,
   store,
