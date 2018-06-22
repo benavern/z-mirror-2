@@ -2,7 +2,7 @@
   <div id="admin-index" class="section columns is-multiline">
     <div class="column" v-for="(page, index) in pages" :key="index">
       <div class="card">
-        <div @click="$router.go(page.path)" class="card-content">
+        <div @click="$router.push(page.path)" class="card-content">
           <div class="media">
             <div class="media-left" v-if="page.icon">
               <b-icon :icon="page.icon" size="is-large" />
@@ -26,24 +26,18 @@
 <script>
 export default {
   name: 'adminIndex',
-  data () {
-    return {
-      pages: [
+  computed: {
+    pages () {
+      return [
         {
           path: '/admin/shopping',
           icon: 'basket-fill',
           title: 'Liste de courses',
-          subtitle: '',
+          subtitle: this.nbShoppingItems,
           content: 'Pour ne jamais se retrouver le frigo vide.'
         }
       ]
-    }
-  },
-  mounted () {
-    // dynamic shopping list count
-    this.$data.pages[0].subtitle = this.nbShoppingItems
-  },
-  computed: {
+    },
     nbShoppingItems () {
       const nb = this.$store.getters['shopping/items'].length || 0
       return `(${nb} ${nb > 1 ? ' articles' : ' article'})`
