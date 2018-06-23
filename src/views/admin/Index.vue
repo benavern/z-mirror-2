@@ -5,7 +5,7 @@
         <div @click="$router.push(page.path)" class="card-content">
           <div class="media">
             <div class="media-left" v-if="page.icon">
-              <b-icon :icon="page.icon" size="is-large" />
+              <b-icon :icon="page.icon" size="is-large" :type="page.iconType"/>
             </div>
 
             <div class="media-content">
@@ -32,9 +32,18 @@ export default {
         {
           path: '/admin/shopping',
           icon: 'basket-fill',
+          iconType: 'is-primary',
           title: 'Liste de courses',
           subtitle: this.nbShoppingItems,
           content: 'Pour ne jamais se retrouver le frigo vide.'
+        },
+        {
+          path: '/admin/meteo',
+          icon: 'weather-partlycloudy',
+          iconType: 'is-warning',
+          title: 'Méteo',
+          subtitle: 'En direct et prévisions',
+          content: 'Parce qu\'en T-shirt sous la pluie c\'est pas marrant!'
         }
       ]
     },

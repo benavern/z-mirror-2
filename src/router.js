@@ -7,6 +7,7 @@ import Index from './views/admin/Index.vue'
 import Admin from './views/admin/Admin.vue'
 import Login from './views/admin/Login.vue'
 import Shopping from './views/admin/Shopping.vue'
+import Meteo from './views/admin/Meteo.vue'
 
 Vue.use(Router)
 
@@ -42,6 +43,15 @@ export default new Router({
           component: Shopping,
           meta: {
             displayName: 'Liste de courses',
+            authentication: true
+          }
+        },
+        {
+          path: 'meteo',
+          name: 'meteo',
+          component: Meteo,
+          meta: {
+            displayName: 'Météo',
             authentication: true
           }
         },
