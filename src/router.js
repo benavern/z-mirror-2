@@ -44,8 +44,16 @@ export default new Router({
             displayName: 'Liste de courses',
             authentication: true
           }
+        },
+        {
+          path: '*',
+          redirect: '/admin'
         }
       ]
+    },
+    {
+      path: '*',
+      redirect: '/'
     }
   ]
 })
