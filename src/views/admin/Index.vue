@@ -10,7 +10,7 @@
 
             <div class="media-content">
               <p class="title is-4">{{ page.title }}</p>
-              <p class="subtitle is-6">{{ page.subtitle }}</p>
+              <p class="subtitle is-7">{{ page.subtitle }}</p>
             </div>
           </div>
 
@@ -49,7 +49,7 @@ export default {
     },
     nbShoppingItems () {
       const nb = this.$store.getters['shopping/items'].length || 0
-      return `(${nb} ${nb > 1 ? ' articles' : ' article'})`
+      return `(${nb} ${nb !== 1 ? ' articles' : ' article'})`
     }
   }
 }
