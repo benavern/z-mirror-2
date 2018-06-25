@@ -2,9 +2,10 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import Buefy from 'buefy'
+import store from './store'
 import 'buefy/lib/buefy.css'
 import '@mdi/font/css/materialdesignicons.css'
-import store from './store'
+import 'weather-icons/css/weather-icons.css'
 
 Vue.use(Buefy)
 

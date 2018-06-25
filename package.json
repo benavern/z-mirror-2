@@ -10,11 +10,13 @@
   "dependencies": {
     "@mdi/font": "^2.4.85",
     "buefy": "^0.6.6",
-    "firebase": "^5.0.4",
+    "firebase": "^5.1.0",
+    "lodash.debounce": "^4.0.8",
     "md5": "^2.2.1",
     "vue": "^2.5.16",
     "vue-router": "^3.0.1",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "weather-icons": "git+https://github.com/erikflowers/weather-icons.git"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.0-rc.3",
