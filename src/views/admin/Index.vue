@@ -1,21 +1,23 @@
 <template>
-  <div id="admin-index" class="section columns is-multiline">
-    <div class="column" v-for="(page, index) in pages" :key="index">
-      <div class="card">
-        <div @click="$router.push(page.path)" class="card-content">
-          <div class="media">
-            <div class="media-left" v-if="page.icon">
-              <b-icon :icon="page.icon" size="is-large" :type="page.iconType"/>
+  <div id="admin-index" class="section">
+    <div class="columns is-multiline">
+      <div class="column" v-for="(page, index) in pages" :key="index">
+        <div class="card">
+          <div @click="$router.push(page.path)" class="card-content">
+            <div class="media">
+              <div class="media-left" v-if="page.icon">
+                <b-icon :icon="page.icon" size="is-large" :type="page.iconType"/>
+              </div>
+
+              <div class="media-content">
+                <p class="title is-4">{{ page.title }}</p>
+                <p class="subtitle is-7">{{ page.subtitle }}</p>
+              </div>
             </div>
 
-            <div class="media-content">
-              <p class="title is-4">{{ page.title }}</p>
-              <p class="subtitle is-7">{{ page.subtitle }}</p>
+            <div class="content">
+              {{ page.content }}
             </div>
-          </div>
-
-          <div class="content">
-            {{ page.content }}
           </div>
         </div>
       </div>
