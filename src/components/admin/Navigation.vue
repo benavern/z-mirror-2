@@ -23,6 +23,10 @@
             Liste de courses
           </router-link>
 
+          <router-link to="/admin/meteo" class="navbar-item">
+            Météo
+          </router-link>
+
           <div class="navbar-item" @click="logout">
             Déconnection
           </div>
