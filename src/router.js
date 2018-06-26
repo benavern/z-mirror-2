@@ -27,14 +27,8 @@ export default new Router({
           component: Index,
           meta: {
             displayName: 'Accueil',
+            displayInHeader: true,
             authentication: true
-          }
-        },
-        {
-          path: 'login',
-          component: Login,
-          meta: {
-            displayName: 'Connection'
           }
         },
         {
@@ -43,6 +37,7 @@ export default new Router({
           component: Shopping,
           meta: {
             displayName: 'Liste de courses',
+            displayInHeader: true,
             authentication: true
           }
         },
@@ -52,7 +47,17 @@ export default new Router({
           component: Meteo,
           meta: {
             displayName: 'Météo',
+            displayInHeader: true,
             authentication: true
+          }
+        },
+        {
+          path: 'login',
+          component: Login,
+          meta: {
+            displayName: 'Connection',
+            displayInHeader: false,
+            authentication: false
           }
         },
         {
