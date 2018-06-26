@@ -6,6 +6,7 @@ import shopping from './store/shopping'
 import shoppingPlugin from './store/shopping/shoppingPlugin'
 
 import meteo from './store/meteo'
+import meteoPlugin from './store/meteo/meteoPlugin'
 
 Vue.use(Vuex)
 
@@ -15,6 +16,7 @@ export default new Vuex.Store({
     meteo
   },
   plugins: [
-    shoppingPlugin(firebaseDb)
+    shoppingPlugin(firebaseDb),
+    meteoPlugin(firebaseDb)
   ]
 })

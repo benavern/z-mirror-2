@@ -119,7 +119,7 @@ export default {
     }, 500),
 
     selectCity (option) {
-      this.$store.dispatch('meteo/selectCity', option)
+      this.$store.dispatch('meteo/updateCityCode', option)
     },
     getDay (dt = 0) {
       const dayNames = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi']

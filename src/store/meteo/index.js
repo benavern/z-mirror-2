@@ -1,4 +1,6 @@
 import Vue from 'vue'
+import firebaseDb from '../../firebase'
+const db = firebaseDb.ref('meteo')
 
 export default {
   namespaced: true,
@@ -36,7 +38,7 @@ export default {
     setDataForecast (state, {list}) {
       Vue.set(state.local.data, 'forecast', [...list])
     },
-    setSettingsCityCode (state, {code}) {
+    setCityCode (state, {code}) {
       state.db.cityCode = code
     }
   },
@@ -47,9 +49,8 @@ export default {
         .then(data => commit('setAutocompleteData', data))
         .catch(() => commit('resetAutocompleteData'))
     },
-    selectCity ({commit, dispatch}, payload) {
-      commit('setSettingsCityCode', {code: payload.id})
-      return dispatch('fetchData')
+    updateCityCode (context, payload) {
+      return db.child('cityCode').set(payload.id)
     },
     fetchData ({state, commit}) {
       if (state.db.cityCode) {
