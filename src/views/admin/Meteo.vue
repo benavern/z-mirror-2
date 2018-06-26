@@ -1,30 +1,5 @@
 <template>
     <section class="section">
-
-      <div class="card" v-if="autocomplete.selected">
-        <div class="card-content">
-          <div class="media meteo-card">
-            <div class="media-left">
-              <i :class="['wi', 'wi-fw', `wi-owm-${autocomplete.selected.weather[0].id}`]"></i>
-            </div>
-
-            <div class="media-content">
-              <div class="title is-6">
-                [{{ autocomplete.selected.sys.country }}] {{ autocomplete.selected.name }}
-              </div>
-
-              <div class="subtitle is-7">
-                {{ Math.round(autocomplete.selected.main.temp) }}&#8451;
-                -
-                <span class="description">{{ autocomplete.selected.weather[0].description }}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <br v-if="autocomplete.selected">
-
       <b-field>
         <b-autocomplete
           v-model="autocomplete.name"
@@ -33,12 +8,12 @@
           field="Ville"
           :loading="autocomplete.isFetching"
           @input="getAutocompleteData"
-          @select="option => autocomplete.selected = option">
+          @select="selectCity">
 
           <template slot-scope="props">
             <div class="media meteo-card">
               <div class="media-left">
-                <i :class="['wi', 'wi-fw', `wi-owm-${props.option.weather[0].id}`]"></i>
+                <i :class="['wi', 'wi-fw', `wi-owm-${props.option.weather[0].id}`, 'is-size-3']"></i>
               </div>
 
               <div class="media-content">
@@ -57,6 +32,55 @@
 
         </b-autocomplete>
       </b-field>
+
+      <div class="card selected-city-card" v-if="currentCityWeather || currentCityForecast">
+        <div class="card-content" v-if="currentCityWeather">
+          <div class="media meteo-card">
+            <div class="media-left">
+              <i :class="['wi', 'wi-fw', `wi-owm-${currentCityWeather.weather[0].id}`, 'is-size-3']"></i>
+            </div>
+
+            <div class="media-content">
+              <div class="title is-6">
+                [{{ currentCityWeather.sys.country }}] {{ currentCityWeather.name }}
+              </div>
+
+              <div class="subtitle is-7">
+                {{ Math.round(currentCityWeather.main.temp) }}&#8451;
+                -
+                <span class="description">{{ currentCityWeather.weather[0].description }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer" v-if="currentCityForecast">
+          <div class="card-footer-item"
+            v-for="forecast in currentCityForecast" :key="forecast.dt">
+            <div class="forecast-item has-text-centered">
+              <div class="day-name is-size-7">
+                {{ getDay(forecast.dt) }}
+              </div>
+
+              <div class="icone">
+                <i :class="['wi', 'wi-fw', `wi-owm-${forecast.weather[0].id}`, 'is-size-4']"></i>
+              </div>
+
+              <div class="temp is-size-7">
+                <div class="min">
+                  <b-icon icon="chevron-down" type="is-info" size="is-small"></b-icon>
+                  {{ Math.round(forecast.temp.min) }}&#8451;
+                </div>
+
+                <div class="max">
+                  <b-icon icon="chevron-up" type="is-danger" size="is-small"></b-icon>
+                  {{ Math.round(forecast.temp.max) }}&#8451;
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 </template>
 
@@ -79,27 +103,46 @@ export default {
       this.autocomplete.data = []
       if (this.autocomplete.name) {
         this.autocomplete.isFetching = true
-        this.$store.dispatch('meteo/getAutocompleteData', {name: this.autocomplete.name})
+        this.$store.dispatch('meteo/fetchAutocompleteData', {name: this.autocomplete.name})
           .then(() => {
             this.autocomplete.data = this.$store.getters['meteo/autocompleteData']
             this.autocomplete.isFetching = false
           })
       }
-    }, 500)
+    }, 500),
+
+    selectCity (option) {
+      this.$store.dispatch('meteo/selectCity', option)
+    },
+    getDay (dt = 0) {
+      const dayNames = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi']
+      const day = (new Date(dt * 1000)).getDay()
+      return dayNames[day]
+    }
+  },
+  computed: {
+    currentCityWeather () {
+      return this.$store.getters['meteo/currentCityWeather']
+    },
+    currentCityForecast () {
+      return this.$store.getters['meteo/currentCityForecast']
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
   .meteo-card {
-    .media-left {
-      .wi {
-        font-size: 2rem;
+    .media-content {
+      .description {
+        text-transform: capitalize;
       }
     }
+  }
 
-    .description {
-      text-transform: capitalize;
+  .selected-city-card {
+    .icone {
+      margin: .5rem 0
     }
   }
 </style>
