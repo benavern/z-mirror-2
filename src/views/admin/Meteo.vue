@@ -102,8 +102,18 @@ export default {
         selected: null,
         isFetching: false
       },
-      refreshing: false
+      refreshing: false,
+      interval: null
     }
+  },
+  mounted () {
+    // refresh meteo data regularily
+    clearInterval(this.interval)
+    const t = 1000 * 60 * 60 * 2 // (1000ms -> 1s) * (60s -> 1min) | (60min -> 1h) * 2 = 2h
+    this.interval = setInterval(this.refreshCurrentCityData, t)
+  },
+  beforeDestroy () {
+    clearInterval(this.interval)
   },
   methods: {
     getAutocompleteData: debounce(function () {
