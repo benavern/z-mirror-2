@@ -62,6 +62,8 @@ export default {
             commit('setDataWeather', weatherData)
             commit('setDataForecast', weatherForecast)
           })
+      } else {
+        return Promise.resolve()
       }
     }
   }

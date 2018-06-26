@@ -51,6 +51,12 @@
                 <span class="description">{{ currentCityWeather.weather[0].description }}</span>
               </div>
             </div>
+
+            <div class="media-right">
+              <button class="refresh-button button is-rounded is-white is-small" @click.prevent="refreshCurrentCityData">
+                <b-icon icon="refresh" size="is-small" :custom-class="refreshing ? 'spin' : ''"></b-icon>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -95,7 +101,8 @@ export default {
         name: '',
         selected: null,
         isFetching: false
-      }
+      },
+      refreshing: false
     }
   },
   methods: {
@@ -118,6 +125,13 @@ export default {
       const dayNames = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi']
       const day = (new Date(dt * 1000)).getDay()
       return dayNames[day]
+    },
+    refreshCurrentCityData () {
+      this.refreshing = true
+      this.$store.dispatch('meteo/fetchData')
+        .then(() => {
+          this.refreshing = false
+        })
     }
   },
   computed: {
@@ -132,6 +146,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+  @keyframes spin {
+      from {transform:rotate(0deg);}
+      to {transform:rotate(360deg);}
+  }
+
   .meteo-card {
     .media-content {
       .description {
@@ -141,8 +161,14 @@ export default {
   }
 
   .selected-city-card {
-    .icone {
-      margin: .5rem 0
+    .refresh-button /deep/ .spin {
+      animation: spin 1s infinite linear;
+    }
+
+    .forecast-item {
+      .icone {
+        margin: .5rem 0
+      }
     }
   }
 </style>
