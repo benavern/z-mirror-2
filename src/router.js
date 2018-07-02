@@ -3,11 +3,13 @@ import Router from 'vue-router'
 
 import Home from './views/Home.vue'
 
-import Index from './views/admin/Index.vue'
+import AdminIndex from './views/admin/Index.vue'
 import Admin from './views/admin/Admin.vue'
 import Login from './views/admin/Login.vue'
 import Shopping from './views/admin/Shopping.vue'
 import Meteo from './views/admin/Meteo.vue'
+
+import Mirror from './views/mirror/Index.vue'
 
 Vue.use(Router)
 
@@ -24,7 +26,7 @@ export default new Router({
       children: [
         {
           path: '',
-          component: Index,
+          component: AdminIndex,
           meta: {
             displayName: 'Accueil',
             displayInHeader: true,
@@ -65,6 +67,11 @@ export default new Router({
           redirect: '/admin'
         }
       ]
+    },
+    {
+      path: '/mirror',
+      name: 'mirror',
+      component: Mirror
     },
     {
       path: '*',
