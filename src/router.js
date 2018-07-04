@@ -69,7 +69,7 @@ export default new Router({
       ]
     },
     {
-      path: '/mirror',
+      path: '/mirror/:theme?',
       name: 'mirror',
       component: Mirror
     },

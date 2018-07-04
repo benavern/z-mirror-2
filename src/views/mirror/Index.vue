@@ -2,23 +2,49 @@
   <div class="container">
     <div class="section">
       <div class="mirror-controls">
-        <button class="button" @click.prevent="fullscreen">
-          <b-icon icon="fullscreen"></b-icon>
-        </button>
-      </div>
+        <b-field grouped>
+          <b-select placeholder="Selectionner un thème" v-model="selectedTheme" @input="updateTheme" expanded>
+            <option value="">-- Aucun --</option>
 
-      <div class="mirror-container" ref="mirrorContainer">
-        <div class="mirror has-background-dark has-text-white">
-          <h1>Mirror content</h1>
-        </div>
+            <option v-for="(option, index) in themes" :key="index"
+              :value="option">
+              {{ option.name }}
+            </option>
+          </b-select>
+
+          <button class="button" @click.prevent="fullscreen" :disabled="!currentTheme">
+            <b-icon icon="fullscreen"></b-icon>
+          </button>
+        </b-field>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="mirror-container" ref="mirrorContainer" v-if="selectedTheme && currentTheme">
+        <div :is="currentTheme.component" class="mirror"/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+
+const themes = [
+  {name: 'Default', routeParam: 'default', component: 'default-mirror'}
+]
+
 export default {
   name: 'mirrorIndex',
+  components: {
+    DefaultMirror: () => import('../../components/mirror/DefaultMirror.vue')
+  },
+  data () {
+    return {
+      themes,
+      currentTheme: null,
+      selectedTheme: null
+    }
+  },
   computed: {
     weather () {
       return this.$store.getters['meteo/currentCityWeather']
@@ -30,9 +56,50 @@ export default {
       return this.$store.getters['shopping/items']
     }
   },
+  created () {
+    this.getThemeFromRouteParam(this.$route.params.theme)
+      .then(theme => {
+        this.currentTheme = theme
+        this.selectedTheme = theme
+      })
+      .catch(() => {
+        this.$router.replace('/mirror')
+      })
+  },
+  beforeRouteUpdate (to, from, next) {
+    this.getThemeFromRouteParam(to.params.theme)
+      .then(theme => {
+        this.currentTheme = theme
+        next()
+      })
+      .catch(err => {
+        next(err)
+      })
+  },
   methods: {
     fullscreen () {
       this.$refs.mirrorContainer.webkitRequestFullscreen()
+    },
+    getThemeFromRouteParam (param) {
+      return new Promise((resolve, reject) => {
+        const theme = themes.find(theme => theme.routeParam === param)
+        if (theme || !param) resolve(theme)
+        else reject(new Error(`Le theme (${param}) n'existe pas`))
+      })
+    },
+    updateTheme (to) {
+      if (!to) {
+        this.$router.push('/mirror')
+        return
+      }
+
+      this.getThemeFromRouteParam(to.routeParam)
+        .then(theme => {
+          this.$router.push(`/mirror/${to.routeParam}`)
+        })
+        .catch(err => {
+          throw err
+        })
     }
   }
 }
@@ -40,7 +107,17 @@ export default {
 
 <style lang="scss">
 .mirror-container {
-  --mirror-display-ratio: 0.75;
+  @import '~bulma/sass/utilities/initial-variables';
+
+  --mirror-display-ratio: 0.25;
+
+  @media (min-width: $tablet) {
+    --mirror-display-ratio: 0.5;
+  }
+
+  @media (min-width: $desktop) {
+    --mirror-display-ratio: 0.75;
+  }
 }
 </style>
 
@@ -58,6 +135,7 @@ export default {
 
     .mirror {
       zoom: var(--mirror-display-ratio);
+      background-color: $dark;
     }
   }
 
@@ -65,6 +143,10 @@ export default {
   &:fullscreen {
     width: 100%;
     height: 100%;
+
+    .mirror {
+      background-color: $black;
+    }
   }
 
   // always
@@ -73,6 +155,7 @@ export default {
     width: 100%;
     height: 100%;
     position: relative;
+    color: $light;
   }
 }
 </style>
