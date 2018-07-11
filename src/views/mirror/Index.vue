@@ -21,7 +21,7 @@
 
     <div class="section">
       <div class="mirror-container" ref="mirrorContainer" v-if="selectedTheme && currentTheme">
-        <div :is="currentTheme.component" class="mirror"/>
+        <div class="mirror" :is="currentTheme.component" />
       </div>
     </div>
   </div>
@@ -43,17 +43,6 @@ export default {
       themes,
       currentTheme: null,
       selectedTheme: null
-    }
-  },
-  computed: {
-    weather () {
-      return this.$store.getters['meteo/currentCityWeather']
-    },
-    forecast () {
-      return this.$store.getters['meteo/currentCityForecast']
-    },
-    shoppingList () {
-      return this.$store.getters['shopping/items']
     }
   },
   created () {
@@ -126,16 +115,17 @@ export default {
 @import '~bulma/sass/utilities/derived-variables';
 
 .mirror-container {
-  // only when not fullscreen
+  // only when NOT fullscreen
   &:not(:fullscreen) {
+    // my screen is H1440xL900
     width: calc(var(--mirror-display-ratio) * 900px);
     height: calc(var(--mirror-display-ratio) * 1440px);
     margin: 2rem auto;
-    outline: 2rem solid $light;
+    outline: 1.5rem solid $border;
 
     .mirror {
       zoom: var(--mirror-display-ratio);
-      background-color: $dark;
+      overflow: auto;
     }
   }
 
@@ -145,17 +135,15 @@ export default {
     height: 100%;
 
     .mirror {
-      background-color: $black;
+      overflow: hidden;
     }
   }
 
   // always
   .mirror {
-    padding: 2rem;
     width: 100%;
     height: 100%;
     position: relative;
-    color: $light;
   }
 }
 </style>
