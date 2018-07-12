@@ -10,9 +10,10 @@
 
 <script>
 import moment from 'moment'
+moment.locale('fr')
 
 export default {
-  name: 'clock',
+  name: 'defaultClock',
   data () {
     return {
       houres: '',
@@ -55,6 +56,7 @@ export default {
       display: inline-block;
       font-size: 5rem;
       line-height: 5rem;
+      font-family: 'Lobster', cursive;
 
       .hidden {
         opacity: 0;

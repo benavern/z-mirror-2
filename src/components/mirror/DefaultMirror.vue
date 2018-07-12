@@ -1,15 +1,20 @@
 <template>
   <div id="mirror">
-    <clock class="clock" />
+    <clock class="clock position top left" />
+
+    <div class="meteo position top right">
+      <weather class="weather" :weather="weather" />
+    </div>
   </div>
 </template>
 
 <script>
 import Clock from './default/Clock'
+import Weather from './default/Weather'
 
 export default {
   name: 'defaultMirror',
-  components: { Clock },
+  components: { Clock, Weather },
   computed: {
     weather () {
       return this.$store.getters['meteo/currentCityWeather']
@@ -27,16 +32,44 @@ export default {
 <style lang="scss" scoped>
   @import '~bulma/sass/utilities/initial-variables';
   @import '~bulma/sass/utilities/derived-variables';
+  @import url('https://fonts.googleapis.com/css?family=Lobster|Nanum+Gothic+Coding');
 
   #mirror {
     padding: 1rem;
     color: $light;
     background-color: $black;
+    font-family: 'Nanum Gothic Coding', monospace;
 
-    .clock {
+    .position {
       position: absolute;
-      top: 2rem;
-      left: 2rem;
+      margin: 1rem;
+
+      &.top {
+        top: 0;
+      }
+
+      &.left {
+        left: 0;
+      }
+
+      &.right {
+        right: 0;
+        text-align: right;
+      }
+
+      &.bottom {
+        bottom: 0;
+      }
+
+      &.center {
+        left: 50%;
+        transform: translateX(-50%)
+      }
+
+      &.middle {
+        top: 50%;
+        transform: translateY(-50%)
+      }
     }
   }
 </style>
