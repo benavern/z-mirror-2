@@ -22,6 +22,11 @@ import ShoppingList from './default/ShoppingList'
 export default {
   name: 'defaultMirror',
   components: { Clock, Weather, Forecast, ShoppingList },
+  data () {
+    return {
+      updateMeteoInterval: null
+    }
+  },
   computed: {
     weather () {
       return this.$store.getters['meteo/currentCityWeather']
@@ -32,6 +37,20 @@ export default {
     shoppingList () {
       return this.$store.getters['shopping/items']
     }
+  },
+  methods: {
+    updateMeteo () {
+      this.$store.dispatch('meteo/fetchData')
+    }
+  },
+  mounted () {
+    // refresh meteo data regularily
+    clearInterval(this.updateMeteoInterval)
+    const t = 1000 * 60 * 60 * 2 // (1000ms -> 1s) * (60s -> 1min) | (60min -> 1h) * 2 = 2h
+    this.updateMeteoInterval = setInterval(this.updateMeteo, t)
+  },
+  beforeDestroy () {
+    clearInterval(this.updateMeteoInterval)
   }
 }
 </script>
