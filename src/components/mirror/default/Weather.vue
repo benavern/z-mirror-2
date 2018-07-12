@@ -9,17 +9,16 @@
         </div>
       </div>
 
-      <div class="temp-item">
+      <div class="temp-item right">
         <div class="temp-text">
           {{ Math.round(weather.main.temp) }} °C
-          <!-- &#8451; -->
         </div>
       </div>
     </div>
 
-    <!-- <div class="city">
+    <div class="city">
       {{ weather.name }}
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -30,7 +29,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 #weather {
   .temperature {
     display: flex;
@@ -40,9 +39,13 @@ export default {
         text-align: center;
       }
 
+      &.right {
+        flex: 1;
+      }
+
       .temp-icon {
-        font-size: 4rem;
-        margin-bottom: 1rem;
+        font-size: 3rem;
+        margin: 1rem 0;
       }
 
       .temp-description {
@@ -51,14 +54,12 @@ export default {
 
       .temp-text {
         font-size: 5rem;
-        font-family: 'Lobster', cursive;
         margin-left: 1rem;
       }
     }
-
-    .city {
-      margin-top: 1rem;
-    }
+  }
+  .city {
+    margin-bottom: 1rem;
   }
 }
 </style>

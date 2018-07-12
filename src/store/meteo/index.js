@@ -2,6 +2,8 @@ import Vue from 'vue'
 import firebaseDb from '../../firebase'
 const db = firebaseDb.ref('meteo')
 
+const defaultCityCode = 2988507
+
 export default {
   namespaced: true,
   state: {
@@ -52,17 +54,19 @@ export default {
     updateCityCode (context, payload) {
       return db.child('cityCode').set(payload.id)
     },
-    fetchData ({state, commit}) {
+    fetchWeather ({state, commit}) {
+      return fetch(`${state.local.api.baseUrl}weather?appid=${state.local.api.key}&id=${state.db.cityCode || defaultCityCode}&mode=json&units=metric&lang=fr`)
+        .then(res => res.json())
+        .then(weatherData => { commit('setDataWeather', weatherData) })
+    },
+    fetchForecast ({state, commit}) {
+      return fetch(`${state.local.api.baseUrl}forecast/daily?appid=${state.local.api.key}&id=${state.db.cityCode || defaultCityCode}&mode=json&units=metric&cnt=4&lang=fr`)
+        .then(res => res.json())
+        .then(forecastData => { commit('setDataForecast', forecastData) })
+    },
+    fetchData ({state, dispatch}) {
       if (state.db.cityCode) {
-        const fetchDataWeather = fetch(`${state.local.api.baseUrl}weather?appid=${state.local.api.key}&id=${state.db.cityCode}&mode=json&units=metric&lang=fr`)
-          .then(res => res.json())
-        const fetchDataForecast = fetch(`${state.local.api.baseUrl}forecast/daily?appid=${state.local.api.key}&id=${state.db.cityCode}&mode=json&units=metric&cnt=4&lang=fr`)
-          .then(res => res.json())
-        return Promise.all([fetchDataWeather, fetchDataForecast])
-          .then(([weatherData, weatherForecast]) => {
-            commit('setDataWeather', weatherData)
-            commit('setDataForecast', weatherForecast)
-          })
+        return Promise.all([ dispatch('fetchWeather'), dispatch('fetchForecast') ])
       } else {
         return Promise.resolve()
       }
