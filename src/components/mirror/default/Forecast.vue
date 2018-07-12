@@ -27,14 +27,14 @@
 </template>
 
 <script>
+import moment from 'moment'
+
 export default {
   name: 'defaultForecast',
   props: ['forecast'],
   methods: {
     getDay (dt = 0) {
-      const dayNames = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi']
-      const day = (new Date(dt * 1000)).getDay()
-      return dayNames[day]
+      return moment.unix(dt).format('dddd')
     }
   }
 }
@@ -51,6 +51,10 @@ export default {
 
         &:not(:last-child) {
           padding-right: 2rem;
+        }
+
+        .day-name {
+          text-transform: capitalize;
         }
 
         .prevision-icon {

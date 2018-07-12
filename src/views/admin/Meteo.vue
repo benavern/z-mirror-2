@@ -92,6 +92,7 @@
 
 <script>
 import debounce from 'lodash.debounce'
+import moment from 'moment'
 
 export default {
   data () {
@@ -123,9 +124,7 @@ export default {
       this.$store.dispatch('meteo/updateCityCode', option)
     },
     getDay (dt = 0) {
-      const dayNames = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi']
-      const day = (new Date(dt * 1000)).getDay()
-      return dayNames[day]
+      return moment.unix(dt).format('dddd')
     },
     refreshCurrentCityData () {
       this.refreshing = true
@@ -167,6 +166,10 @@ export default {
     }
 
     .forecast-item {
+      .day-name {
+        text-transform: capitalize;
+      }
+
       .icone {
         margin: .5rem 0
       }

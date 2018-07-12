@@ -10,7 +10,6 @@
 
 <script>
 import moment from 'moment'
-moment.locale('fr')
 
 export default {
   name: 'defaultClock',
@@ -73,6 +72,7 @@ export default {
 
     .date {
       margin-top: 1rem;
+      text-transform: capitalize;
     }
   }
 </style>
