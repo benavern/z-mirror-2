@@ -1,12 +1,15 @@
 <template>
   <div id="mirror">
-    <h1>Mirroir par défaut</h1>
+    <clock class="clock" />
   </div>
 </template>
 
 <script>
+import Clock from './default/Clock'
+
 export default {
   name: 'defaultMirror',
+  components: { Clock },
   computed: {
     weather () {
       return this.$store.getters['meteo/currentCityWeather']
@@ -29,5 +32,11 @@ export default {
     padding: 1rem;
     color: $light;
     background-color: $black;
+
+    .clock {
+      position: absolute;
+      top: 2rem;
+      left: 2rem;
+    }
   }
 </style>
