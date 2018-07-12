@@ -6,6 +6,10 @@
       <weather class="weather" :weather="weather" />
       <forecast class="forecast" :forecast="forecast" />
     </div>
+
+    <div class="shoppingList position bottom right">
+      <shopping-list class="shopping-list" :shopping-list="shoppingList"></shopping-list>
+    </div>
   </div>
 </template>
 
@@ -13,10 +17,11 @@
 import Clock from './default/Clock'
 import Weather from './default/Weather'
 import Forecast from './default/Forecast'
+import ShoppingList from './default/ShoppingList'
 
 export default {
   name: 'defaultMirror',
-  components: { Clock, Weather, Forecast },
+  components: { Clock, Weather, Forecast, ShoppingList },
   computed: {
     weather () {
       return this.$store.getters['meteo/currentCityWeather']

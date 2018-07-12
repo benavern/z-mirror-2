@@ -108,7 +108,7 @@ export default {
     --mirror-display-ratio: 0.75;
   }
 
-  /deep/ .debug {
+  .debug {
     border: 1px dotted pink;
 
     pre {
