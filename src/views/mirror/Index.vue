@@ -107,6 +107,14 @@ export default {
   @media (min-width: $desktop) {
     --mirror-display-ratio: 0.75;
   }
+
+  /deep/ .debug {
+    border: 1px dotted pink;
+
+    pre {
+      text-align: left;
+    }
+  }
 }
 </style>
 
