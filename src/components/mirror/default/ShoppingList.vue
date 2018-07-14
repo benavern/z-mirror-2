@@ -1,5 +1,5 @@
 <template>
-  <div id="shopping-list" v-if="shoppingList">
+  <div id="shopping-list" v-if="shoppingList && shoppingList.length">
     <div class="shopping-list-title">
       Liste de courses
     </div>
