@@ -31,7 +31,8 @@ export default new Router({
           meta: {
             displayName: 'Accueil',
             displayInHeader: true,
-            authentication: true
+            authentication: true,
+            icon: 'home'
           }
         },
         {
@@ -41,7 +42,8 @@ export default new Router({
           meta: {
             displayName: 'Liste de courses',
             displayInHeader: true,
-            authentication: true
+            authentication: true,
+            icon: 'basket-fill'
           }
         },
         {
@@ -51,7 +53,8 @@ export default new Router({
           meta: {
             displayName: 'Météo',
             displayInHeader: true,
-            authentication: true
+            authentication: true,
+            icon: 'weather-partlycloudy'
           }
         },
         {
@@ -61,7 +64,8 @@ export default new Router({
           meta: {
             displayName: 'Liste de tâches',
             displayInHeader: true,
-            authentication: true
+            authentication: true,
+            icon: 'format-list-checks'
           }
         },
         {

@@ -8,7 +8,7 @@
 
         <div class="navbar-item page-title">
           <h6 class="title is-6">
-            {{ $route.meta.displayName || 'Z-Mirror 2' }}
+            {{ currentRouteName }}
           </h6>
         </div>
 
@@ -23,12 +23,22 @@
         <div class="navbar-end">
 
           <router-link v-for="route in routes" :key="route.path"
-            :to="route.path" class="navbar-item">
-            {{ route.name }}
+            :to="route.path"
+            class="navbar-item"
+            exact-active-class="is-active">
+            <b-icon :icon="route.icon" class="navbar-item-icon" v-if="route.icon"/>
+
+            <span>
+              {{ route.name }}
+            </span>
           </router-link>
 
           <a class="navbar-item" @click.prevent="logout">
-            Déconnection
+            <b-icon icon="account-remove" class="navbar-item-icon"/>
+
+            <span>
+              Déconnection
+            </span>
           </a>
         </div>
       </div>
@@ -47,13 +57,19 @@ export default {
       .map((route) => {
         return {
           path: `/admin/${route.path}`,
-          name: route.meta.displayName
+          name: route.meta.displayName,
+          icon: route.meta.icon
         }
       })
 
     return {
       menuVisible: false,
       routes
+    }
+  },
+  computed: {
+    currentRouteName () {
+      return this.$route.meta.displayName || 'Z-Mirror 2'
     }
   },
   methods: {
@@ -68,3 +84,13 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.navbar {
+  .navbar-item {
+    .navbar-item-icon {
+      margin-right: .5rem;
+    }
+  }
+}
+</style>
