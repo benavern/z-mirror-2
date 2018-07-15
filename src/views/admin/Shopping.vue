@@ -49,7 +49,7 @@
     </div>
   </section>
 
-  <button class="button is-primary is-outlined add-item-button" @click.prevent="openModal()">
+  <button class="button is-primary is-outlined add-item-button corner-button" @click.prevent="openModal()">
     <b-icon icon="plus"/>
   </button>
 
@@ -125,13 +125,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.add-item-button {
-  position: fixed;
-  bottom: 1rem;
-  right: 1rem;
-  width: 3rem;
-  height: 3rem;
-}
-</style>

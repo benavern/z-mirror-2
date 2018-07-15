@@ -46,13 +46,31 @@ export default {
           title: 'Méteo',
           subtitle: 'En direct et prévisions',
           content: 'Parce qu\'en T-shirt sous la pluie c\'est pas marrant!'
+        },
+        {
+          path: '/admin/todo',
+          icon: 'format-list-checks',
+          iconType: 'is-success',
+          title: 'Liste de tâches',
+          subtitle: 'Pour ne rien oublier',
+          content: 'Un RDV ? Un rappel ? etc ... pas de problème!'
         }
       ]
     },
     nbShoppingItems () {
       const nb = this.$store.getters['shopping/items'].length || 0
-      return `(${nb} ${nb !== 1 ? ' articles' : ' article'})`
+      return `${nb} ${nb !== 1 ? ' articles' : ' article'} dans la liste`
     }
   }
 }
 </script>
+
+<style lang="scss">
+.corner-button {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  width: 3rem;
+  height: 3rem;
+}
+</style>

@@ -8,6 +8,7 @@ import Admin from './views/admin/Admin.vue'
 import Login from './views/admin/Login.vue'
 import Shopping from './views/admin/Shopping.vue'
 import Meteo from './views/admin/Meteo.vue'
+import Todo from './views/admin/Todo.vue'
 
 import Mirror from './views/mirror/Index.vue'
 
@@ -49,6 +50,16 @@ export default new Router({
           component: Meteo,
           meta: {
             displayName: 'Météo',
+            displayInHeader: true,
+            authentication: true
+          }
+        },
+        {
+          path: 'todo',
+          name: 'todo',
+          component: Todo,
+          meta: {
+            displayName: 'Liste de tâches',
             displayInHeader: true,
             authentication: true
           }
