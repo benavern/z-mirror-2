@@ -1,51 +1,28 @@
 <template>
 <div id="shopping">
   <section class="section">
-    <div class="container">
+    <div class="panel">
+      <div class="panel-block" v-for="item in list" :key="item.key">
+        <div class="item-quantity is-grey">
+          <b>{{ item.quantity }}</b>
+        </div>
 
-      <b-table :data="list"
-        striped
-        narrowed
-        :mobile-cards="false">
+        <div class="item-name expanded">
+          {{ item.name }}
+        </div>
 
-        <template slot-scope="props">
-          <b-table-column field="quantity" label="Nb" numeric centered width="40">
-            {{ props.row.quantity }}
-          </b-table-column>
+        <button class="button is-small is-primary is-outlined" @click.prevent="openModal(item)">
+          <b-icon icon="pencil" size="is-small"></b-icon>
+        </button>
 
-          <b-table-column field="name" label="Article">
-            {{ props.row.name }}
-          </b-table-column>
+        <button class="button is-small is-danger is-outlined" @click.prevent="deleteItem(item)">
+          <b-icon icon="delete" size="is-small"></b-icon>
+        </button>
+      </div>
 
-          <b-table-column width="85" label="Actions">
-            <button class="button is-small is-primary is-outlined" @click.prevent="openModal(props.row)">
-              <b-icon icon="pencil" size="is-small"></b-icon>
-            </button>
-
-            &nbsp;
-
-            <button class="button is-small is-danger" @click.prevent="deleteItem(props.row.key)">
-              <b-icon icon="delete" size="is-small"></b-icon>
-            </button>
-          </b-table-column>
-        </template>
-
-        <template slot="empty">
-          <section class="section">
-            <div class="content has-text-grey has-text-centered">
-              <p>
-                <b-icon
-                    icon="food-fork-drink"
-                    size="is-large">
-                </b-icon>
-              </p>
-
-              <p>La liste est vide...</p>
-              <p>... Le frigo est-il plein ?!</p>
-            </div>
-          </section>
-        </template>
-      </b-table>
+      <div class="panel-block" v-if="!list.length">
+        <div class="button is-primary expanded" @click.prevent="openModal()">Ajouter un article</div>
+      </div>
     </div>
   </section>
 
@@ -89,8 +66,8 @@ export default {
       }
     },
 
-    deleteItem (key) {
-      this.$store.dispatch('shopping/remove', key)
+    deleteItem (item) {
+      this.$store.dispatch('shopping/remove', item.key)
     },
 
     updateItem (item) {
@@ -125,3 +102,21 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+#shopping {
+  .panel-block {
+    .item-quantity {
+      margin-right: .5rem;
+    }
+
+    .expanded {
+      flex: 1;
+    }
+
+    .button {
+      margin-left: .5rem;
+    }
+  }
+}
+</style>
