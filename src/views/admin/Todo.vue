@@ -13,7 +13,7 @@
         </p>
 
         <div class="panel-block" v-for="item in list" :key="item.key">
-          <b-checkbox v-model="item.done"></b-checkbox>
+          <b-checkbox v-model="item.done" @input="toggleCheck(item)"></b-checkbox>
 
           <div class="expanded" v-html="item.text" />
 
@@ -89,6 +89,10 @@ export default {
           this.displayModal = false
         })
       }
+    },
+
+    toggleCheck (item) {
+      this.updateItem(item)
     },
 
     checkItem (item) {
