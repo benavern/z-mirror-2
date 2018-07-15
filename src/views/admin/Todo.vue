@@ -2,9 +2,6 @@
   <div id="todo">
     <div class="section">
       <div class="panel">
-        <!-- <p class="panel-heading">
-          Liste des Tâches
-        </p> -->
 
         <p class="panel-tabs">
           <a :class="{'is-active': filter === 'all'}" @click.prevent="filterTab('all')">Tout</a>
@@ -59,7 +56,7 @@ export default {
   },
   computed: {
     list () {
-      return this.$store.getters['todo/items']
+      return this.$store.getters['todo/filteredItems']
     },
 
     filter () {

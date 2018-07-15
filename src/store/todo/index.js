@@ -13,6 +13,9 @@ export default {
   },
   getters: {
     items (state) {
+      return state.db.list
+    },
+    filteredItems (state) {
       return state.db.list.filter(item => {
         switch (state.local.filter) {
           case 'todo':
