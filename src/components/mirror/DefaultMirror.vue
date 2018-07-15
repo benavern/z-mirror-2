@@ -7,7 +7,11 @@
       <forecast class="forecast" :forecast="forecast" />
     </div>
 
-    <div class="shoppingList position bottom right">
+    <div class="todo-list position bottom left">
+      <todo-list :todo-list="todoList"></todo-list>
+    </div>
+
+    <div class="shopping-list position bottom right">
       <shopping-list class="shopping-list" :shopping-list="shoppingList"></shopping-list>
     </div>
   </div>
@@ -18,10 +22,11 @@ import Clock from './default/Clock'
 import Weather from './default/Weather'
 import Forecast from './default/Forecast'
 import ShoppingList from './default/ShoppingList'
+import TodoList from './default/TodoList'
 
 export default {
   name: 'defaultMirror',
-  components: { Clock, Weather, Forecast, ShoppingList },
+  components: { Clock, Weather, Forecast, ShoppingList, TodoList },
   data () {
     return {
       updateMeteoInterval: null
@@ -36,6 +41,9 @@ export default {
     },
     shoppingList () {
       return this.$store.getters['shopping/items']
+    },
+    todoList () {
+      return this.$store.getters['todo/items']
     }
   },
   methods: {
@@ -60,13 +68,13 @@ export default {
   @import '~bulma/sass/utilities/derived-variables';
 
   #mirror {
-    padding: 1rem;
+    padding: 1.5rem;
     color: $light;
     background-color: $black;
 
     .position {
       position: absolute;
-      margin: 1rem;
+      margin: 1.5rem;
 
       max-width: 50%;
 
