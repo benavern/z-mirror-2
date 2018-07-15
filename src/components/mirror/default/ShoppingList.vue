@@ -1,20 +1,19 @@
 <template>
   <div id="shopping-list" v-if="shoppingList && shoppingList.length">
-    <div class="shopping-list-title">
+    <div class="title has-text-white">
       Liste de courses
     </div>
-    <div class="shopping-item" v-for="shoppingItem in shoppingList" :key="shoppingItem.key">
-      <div class="shopping-item-col item-name">
+
+    <div class="shopping-item is-size-7" v-for="shoppingItem in shoppingList" :key="shoppingItem.key">
+      <span class="shopping-item-col item-name">
         {{ shoppingItem.name }}
-      </div>
+      </span>
 
-      <div class="shopping-item-col item-quantity" v-if="shoppingItem.quantity > 1">
+      <small class="shopping-item-col item-quantity" v-if="shoppingItem.quantity > 1">
         (x{{ shoppingItem.quantity }})
-      </div>
+      </small>
 
-      <div class="shopping-item-col">
-        &#9667;
-      </div>
+      <b-icon icon="menu-left" size="is-small" />
     </div>
   </div>
 </template>
@@ -25,25 +24,3 @@ export default {
   props: ['shopping-list']
 }
 </script>
-
-<style lang="scss" scoped>
-#shopping-list {
-  font-size: .75rem;
-
-  .shopping-list-title {
-    font-size: 3em;
-    margin-bottom: 1rem
-  }
-
-  .shopping-item {
-    .shopping-item-col {
-      display: inline-block;
-      margin-left: .5rem;
-
-      &.item-quantity {
-        font-size: .75em;
-      }
-    }
-  }
-}
-</style>
