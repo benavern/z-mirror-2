@@ -13,9 +13,9 @@
         </p>
 
         <div class="panel-block" v-for="item in list" :key="item.key">
-          <b-checkbox v-model="item.done" class="expanded">
-            {{ item.text }}
-          </b-checkbox>
+          <b-checkbox v-model="item.done"></b-checkbox>
+
+          <div class="expanded" v-html="item.text" />
 
           <button class="button is-small is-primary is-outlined" @click.prevent="openModal(item)">
             <b-icon icon="pencil" size="is-small"></b-icon>
