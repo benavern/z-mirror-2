@@ -1,7 +1,7 @@
 <template>
   <div id="todo">
     <div class="section">
-      <nav class="panel">
+      <div class="panel">
         <!-- <p class="panel-heading">
           Liste des Tâches
         </p> -->
@@ -29,7 +29,7 @@
         <div class="panel-block" v-if="!list.length">
           <div class="button is-primary expanded" @click.prevent="openModal()">Ajouter une tâche</div>
         </div>
-      </nav>
+      </div>
     </div>
 
     <button class="button is-primary is-outlined add-item-button corner-button" @click.prevent="openModal()">
