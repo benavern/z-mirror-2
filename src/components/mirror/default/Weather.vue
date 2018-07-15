@@ -11,7 +11,7 @@
 
       <div class="temp-item right">
         <div class="temp-text">
-          {{ Math.round(weather.main.temp) }} °C
+          <span>{{ Math.round(weather.main.temp) }}</span> °C
         </div>
       </div>
     </div>
@@ -55,6 +55,10 @@ export default {
       .temp-text {
         font-size: 5rem;
         margin-left: 1rem;
+
+        span {
+          font-weight: bold;
+        }
       }
     }
   }

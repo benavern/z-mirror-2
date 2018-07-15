@@ -55,6 +55,7 @@ export default {
       display: inline-block;
       font-size: 5rem;
       line-height: 5rem;
+      font-weight: bold;
 
       .hidden {
         opacity: 0;
@@ -67,6 +68,7 @@ export default {
         font-size: 2.5rem;
         margin-left: .5rem;
         top: -1.75rem;
+        font-weight: normal;
       }
     }
 
