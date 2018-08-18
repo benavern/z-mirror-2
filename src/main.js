@@ -5,7 +5,7 @@ import Buefy from 'buefy'
 import store from './store'
 import 'buefy/lib/buefy.css'
 import '@mdi/font/css/materialdesignicons.css'
-import 'weather-icons/css/weather-icons.css'
+import 'weather-icons2/css/weather-icons.min.css'
 import moment from 'moment'
 
 Vue.use(Buefy)
