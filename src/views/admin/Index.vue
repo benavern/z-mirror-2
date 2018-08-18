@@ -28,34 +28,35 @@
 <script>
 export default {
   name: 'adminIndex',
+  data () {
+    const excludedRoutes = ['', 'login']
+    return {
+      adminRoutes: this.$router.options.routes
+        .find(route => route.path === '/admin').children
+        .filter(route => route.meta && !excludedRoutes.includes(route.path))
+        .map(route => {
+          // get data from router meta object
+          const { icon, iconType, displayName: title, subtitle, description: content } = route.meta
+          // format it for the page
+          return {
+            path: `/admin/${route.path}`,
+            icon,
+            iconType,
+            title,
+            subtitle,
+            content
+          }
+        })
+    }
+  },
   computed: {
     pages () {
-      return [
-        {
-          path: '/admin/shopping',
-          icon: 'basket-fill',
-          iconType: 'is-primary',
-          title: 'Liste de courses',
-          subtitle: this.nbShoppingItems,
-          content: 'Pour ne jamais se retrouver le frigo vide.'
-        },
-        {
-          path: '/admin/meteo',
-          icon: 'weather-partlycloudy',
-          iconType: 'is-warning',
-          title: 'Méteo',
-          subtitle: 'En direct et prévisions',
-          content: 'Parce qu\'en T-shirt sous la pluie c\'est pas marrant!'
-        },
-        {
-          path: '/admin/todo',
-          icon: 'format-list-checks',
-          iconType: 'is-success',
-          title: 'Liste de tâches',
-          subtitle: 'Pour ne rien oublier',
-          content: 'Un RDV ? Un rappel ? etc ... pas de problème!'
+      return this.adminRoutes.map(route => {
+        if (route.path === '/admin/shopping') {
+          route.subtitle = this.nbShoppingItems
         }
-      ]
+        return route
+      })
     },
     nbShoppingItems () {
       const nb = this.$store.getters['shopping/items'].length || 0
@@ -64,13 +65,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-.corner-button {
-  position: fixed;
-  bottom: 1rem;
-  right: 1rem;
-  width: 3rem;
-  height: 3rem;
-}
-</style>

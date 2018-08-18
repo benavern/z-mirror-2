@@ -22,3 +22,13 @@ export default {
     padding-top: 3.25rem;
   }
 </style>
+
+<style lang="scss">
+.corner-button {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  width: 3rem;
+  height: 3rem;
+}
+</style>
