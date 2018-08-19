@@ -7,6 +7,10 @@
       <forecast class="forecast" :forecast="forecast" />
     </div>
 
+    <div class="big-message position middle center">
+      <big-message :big-message-list="bigMessageList"/>
+    </div>
+
     <div class="todo-list position bottom left">
       <todo-list :todo-list="todoList"></todo-list>
     </div>
@@ -23,10 +27,11 @@ import Weather from './default/Weather'
 import Forecast from './default/Forecast'
 import ShoppingList from './default/ShoppingList'
 import TodoList from './default/TodoList'
+import BigMessage from './default/BigMessage'
 
 export default {
   name: 'defaultMirror',
-  components: { Clock, Weather, Forecast, ShoppingList, TodoList },
+  components: { Clock, Weather, Forecast, ShoppingList, TodoList, BigMessage },
   data () {
     return {
       updateMeteoInterval: null
@@ -44,6 +49,9 @@ export default {
     },
     todoList () {
       return this.$store.getters['todo/items']
+    },
+    bigMessageList () {
+      return this.$store.getters['bigMessage/items']
     }
   },
   methods: {
@@ -75,7 +83,6 @@ export default {
     .position {
       position: absolute;
       margin: 1.5rem;
-
       max-width: 50%;
 
       &.top {
@@ -97,12 +104,18 @@ export default {
 
       &.center {
         left: 50%;
-        transform: translateX(-50%)
+        transform: translateX(-50%);
+        text-align: center;
       }
 
       &.middle {
         top: 50%;
-        transform: translateY(-50%)
+        transform: translateY(-50%);
+
+        &.center {
+          transform: translate(-50%, -50%);
+          max-width: 100%;
+        }
       }
     }
   }
