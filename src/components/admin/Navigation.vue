@@ -2,7 +2,7 @@
   <div class="navbar is-fixed-top is-light">
     <div class="container">
       <div class="navbar-brand">
-        <router-link to="/admin" class="navbar-item">
+        <router-link to="/" class="navbar-item">
           <img src="../../assets/icon.png" alt="Z-mirror, a mirror with super power">
         </router-link>
 
