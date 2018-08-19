@@ -5,7 +5,14 @@
 
         <div class="panel-block" v-for="item in list" :key="item.key">
 
-          <div class="expanded" v-html="item.text" />
+          <div class="expanded">
+            <div class="time-interval">
+              [{{ item.start | time }} - {{ item.end | time }}] &nbsp;
+            </div>
+
+            <div v-html="item.text" />
+
+          </div>
 
           <button class="button is-small is-primary is-outlined" @click.prevent="openModal(item)">
             <b-icon icon="pencil" size="is-small"></b-icon>
@@ -35,6 +42,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 import BigMessageModal from '../../components/admin/bigMessage/bigMessageModal'
 
 export default {
@@ -95,6 +103,12 @@ export default {
       }
       this.displayModal = true
     }
+  },
+  filters: {
+    time (val) {
+      if (!val) return 'ERROR!!!'
+      return moment(val).format('HH:mm')
+    }
   }
 }
 </script>
@@ -102,6 +116,10 @@ export default {
 <style lang="scss" scoped>
 #big-message {
   .panel-block {
+    .time-interval {
+      font-weight: bold;
+    }
+
     .expanded {
       flex: 1;
     }
