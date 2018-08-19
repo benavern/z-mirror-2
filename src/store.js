@@ -11,17 +11,22 @@ import meteoPlugin from './store/meteo/meteoPlugin'
 import todo from './store/todo'
 import todoPlugin from './store/todo/todoPlugin'
 
+import bigMessage from './store/bigMessage'
+import bigMessagePlugin from './store/bigMessage/bigMessagePlugin'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
     shopping,
     meteo,
-    todo
+    todo,
+    bigMessage
   },
   plugins: [
     shoppingPlugin(firebaseDb),
     meteoPlugin(firebaseDb),
-    todoPlugin(firebaseDb)
+    todoPlugin(firebaseDb),
+    bigMessagePlugin(firebaseDb)
   ]
 })

@@ -1,6 +1,6 @@
 <template>
   <div id="admin">
-    <navigation></navigation>
+    <navigation />
     <div class="container">
       <router-view/>
     </div>
@@ -24,11 +24,11 @@ export default {
 </style>
 
 <style lang="scss">
-.corner-button {
-  position: fixed;
-  bottom: 1rem;
-  right: 1rem;
-  width: 3rem;
-  height: 3rem;
-}
+  .corner-button {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    width: 3rem;
+    height: 3rem;
+  }
 </style>
