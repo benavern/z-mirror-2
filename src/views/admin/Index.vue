@@ -59,8 +59,9 @@ export default {
       })
     },
     nbShoppingItems () {
-      const nb = this.$store.getters['shopping/items'].length || 0
-      return `${nb} ${nb !== 1 ? ' articles' : ' article'} dans la liste`
+      const nb = this.$store.getters['shopping/nbItems']
+      if (!nb) return `Aucun article dans la liste`
+      return `${nb} ${nb > 1 ? 'articles' : 'article'} dans la liste`
     }
   }
 }

@@ -12,6 +12,9 @@ export default {
   getters: {
     items (state) {
       return state.db.list
+    },
+    nbItems (state) {
+      return state.db.list.reduce((acc, val) => acc + Number(val.quantity), 0)
     }
   },
   mutations: {
