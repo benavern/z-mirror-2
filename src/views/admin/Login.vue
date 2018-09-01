@@ -1,16 +1,19 @@
 <template>
   <form @submit.prevent="login" class="section">
-    <b-field position="is-centered">
-      <b-input type="email" v-model="email" placeholder="Mot de pass" autofocus />
-      <b-input type="password" v-model="password" placeholder="Mot de pass" autofocus />
+    <b-field label="Email" horizontal>
+      <b-input type="email" v-model="email" placeholder="mail@exemple.com" autofocus />
+    </b-field>
+    <b-field label="Password" horizontal>
+      <b-input type="password" v-model="password" placeholder="Mot de pass" password-reveal />
+    </b-field>
 
-      <b-input type="submit" value="Valider" />
+    <b-field horizontal>
+      <button type="submit" class="button">Connection</button>
     </b-field>
   </form>
 </template>
 
 <script>
-// import md5 from 'md5'
 import { firebaseAuth } from '../../firebase.js'
 
 export default {
