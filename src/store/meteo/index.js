@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import firebaseDb from '../../firebase'
+import { firebaseDb } from '../../firebase'
 const db = firebaseDb.ref('meteo')
 
 const defaultCityCode = 2988507

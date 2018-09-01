@@ -15,7 +15,7 @@ Vue.config.productionTip = false
 moment.locale('fr')
 
 router.beforeEach((to, from, next) => {
-  if (to.meta.authentication && !sessionStorage.getItem('authenticated')) {
+  if (to.meta.authentication && !store.getters['user/isConnected']) {
     next({path: '/admin/login', query: { to: to.path }})
   } else {
     next()

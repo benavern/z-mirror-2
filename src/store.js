@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import firebaseDb from './firebase'
+import { firebaseDb } from './firebase'
 
 import shopping from './store/shopping'
 import shoppingPlugin from './store/shopping/shoppingPlugin'
@@ -14,6 +14,8 @@ import todoPlugin from './store/todo/todoPlugin'
 import bigMessage from './store/bigMessage'
 import bigMessagePlugin from './store/bigMessage/bigMessagePlugin'
 
+import user from './store/user'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -21,7 +23,8 @@ export default new Vuex.Store({
     shopping,
     meteo,
     todo,
-    bigMessage
+    bigMessage,
+    user
   },
   plugins: [
     shoppingPlugin(firebaseDb),

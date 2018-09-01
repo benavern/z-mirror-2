@@ -1,4 +1,4 @@
-import firebaseDb from '../../firebase'
+import { firebaseDb } from '../../firebase'
 const db = firebaseDb.ref('big-message')
 
 export default {

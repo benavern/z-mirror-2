@@ -47,6 +47,8 @@
 </template>
 
 <script>
+import { firebaseAuth } from '../../firebase.js'
+
 export default {
   name: 'navigation',
   data () {
@@ -78,8 +80,17 @@ export default {
     },
 
     logout () {
-      sessionStorage.removeItem('authenticated')
-      this.$router.go('/admin/login')
+      firebaseAuth.signOut().then(() => {
+        // Sign-out successful.
+        this.$router.go('/admin/login')
+      }).catch(() => {
+        // An error happened.
+        this.$toast.open({
+          message: `Une erreur est survenue`,
+          position: 'is-bottom',
+          type: 'is-danger'
+        })
+      })
     }
   }
 }
