@@ -89,7 +89,7 @@ export default new Router({
             icon: 'message-text-outline',
             iconType: 'is-info',
             subtitle: 'Pour dire bonjour / faire plaisir / ...',
-            description: 'Faire passer un message qu\'on ne pourra pas ratter'
+            description: 'Faire passer un message qu\'on ne pourra pas rater'
           }
         },
         {
