@@ -20,7 +20,7 @@ export default {
             })
         } else {
           // User is signed out.
-          if (this.$store.getters['user/isConnected']) {
+          if (this.$store.getters['user/isConnected'] && this.$route.meta.authentication) {
             this.$store.dispatch('user/logout')
           }
         }
