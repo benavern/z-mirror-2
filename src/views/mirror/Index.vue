@@ -15,12 +15,17 @@
           <button class="button" @click.prevent="fullscreen" :disabled="!currentTheme">
             <b-icon icon="fullscreen"></b-icon>
           </button>
+
+          <button class="button" @click.prevent="toggleOrientation" :disabled="!currentTheme">
+            <b-icon v-if="orientation === 'landscape'" icon="phone-rotate-portrait"></b-icon>
+            <b-icon v-if="orientation === 'portrait'" icon="phone-rotate-landscape"></b-icon>
+          </button>
         </b-field>
       </div>
     </div>
 
     <div class="section">
-      <div class="mirror-container" ref="mirrorContainer" v-if="selectedTheme && currentTheme">
+      <div class="mirror-container" ref="mirrorContainer" v-if="selectedTheme && currentTheme" :class="{'landscape': orientation === 'landscape'}">
         <div class="mirror" :is="currentTheme.component" />
       </div>
     </div>
@@ -42,7 +47,8 @@ export default {
     return {
       themes,
       currentTheme: null,
-      selectedTheme: null
+      selectedTheme: null,
+      orientation: 'portrait'
     }
   },
   created () {
@@ -68,6 +74,9 @@ export default {
   methods: {
     fullscreen () {
       this.$refs.mirrorContainer.webkitRequestFullscreen()
+    },
+    toggleOrientation () {
+      this.orientation = this.orientation === 'portrait' ? 'landscape' : 'portrait'
     },
     getThemeFromRouteParam (param) {
       return new Promise((resolve, reject) => {
@@ -130,6 +139,12 @@ export default {
     height: calc(var(--mirror-display-ratio) * 1440px);
     margin: 2rem auto;
     outline: 1.5rem solid $border;
+
+
+    &.landscape {
+      width: calc(var(--mirror-display-ratio) * 1440px);
+      height: calc(var(--mirror-display-ratio) * 900px);
+    }
 
     .mirror {
       zoom: var(--mirror-display-ratio);
