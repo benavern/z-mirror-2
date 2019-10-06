@@ -60,16 +60,23 @@ export default {
 }
 </script>
 
+<style>
+
+#mirror {
+    --padding: 2rem;
+    --primary-color: #16a085;
+}
+
+</style>
+
 <style lang="scss" scoped>
   @import '~bulma/sass/utilities/initial-variables';
   @import '~bulma/sass/utilities/derived-variables';
 
   // external font
-  @import url('https://fonts.googleapis.com/css?family=Manjari&display=swap');
+  @import url('https://fonts.googleapis.com/css?family=Manjari');
 
   #mirror {
-    --padding: 2rem;
-
     padding: var(--padding);
     color: $light;
     background-color: $black;

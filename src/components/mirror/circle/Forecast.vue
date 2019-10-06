@@ -49,15 +49,19 @@ export default {
     .forecast-content {
       position: absolute;
       top: 50%;
-      transform: translateY(-50%);
-      width: 100%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 75%;
+      height: 75%;
     }
 
     .previsions {
       display: flex;
       flex-direction: column;
-      align-items: center;
+      justify-content: space-around;
       font-size: .7rem;
+      height: 100%;
+      width: 100%;
 
       .prevision {
         display: flex;
@@ -65,7 +69,6 @@ export default {
         padding: 0 1em;
 
         &:not(:last-child) {
-          margin-bottom: .5em;
           border-bottom: 1px solid rgba(#fff, .3);
         }
 

@@ -9,6 +9,7 @@
       </div>
       <div class="date">{{ date }}</div>
     </div>
+    <div class="clock-seconds" :style="{'transform': `rotate(${secondsRound}deg)`}"></div>
   </div>
 </template>
 
@@ -23,6 +24,7 @@ export default {
       minutes: '',
       seconds: '',
       date: '',
+      secondsRound: 0,
       now: null,
       clockTimer: null
     }
@@ -41,6 +43,7 @@ export default {
       this.minutes = this.now.format('mm')
       this.seconds = this.now.format('ss')
       this.date = this.now.format('dddd D MMM YYYY')
+      this.secondsRound = this.now.seconds() / 60 * 360 // % of a clock round
     },
     startClock () {
       this.clockTimer = setInterval(this.updateClock, 1000)
@@ -81,6 +84,27 @@ export default {
     .date {
       margin-top: 1rem;
       text-transform: capitalize;
+    }
+
+    .clock-seconds {
+      --seconds-size: .25rem;
+      position: absolute;
+      top: 0;
+      left: calc(50% - var(--seconds-size) / 2);
+      height: 50%;
+      padding: .2em 0;
+
+      &:before {
+        content: '';
+        display: block;
+        width: var(--seconds-size);
+        background-color: var(--primary-color);
+        height: calc(4 * var(--seconds-size));
+        border-radius: var(--seconds-size);
+      }
+
+      transform: rotate(0deg);
+      transform-origin: bottom;
     }
   }
 </style>

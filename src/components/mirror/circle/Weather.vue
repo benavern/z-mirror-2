@@ -44,6 +44,7 @@ export default {
 
     .temp-icon {
       font-size: 4rem;
+      color: #bbb;
     }
 
     .temp-description {
@@ -54,7 +55,11 @@ export default {
     .temp-text {
       font-size: 4rem;
       line-height: 4rem;
-      margin-top: .5em;
+      margin-top: 1rem;
+    }
+
+    .city b{
+      color: var(--primary-color);
     }
   }
 </style>
