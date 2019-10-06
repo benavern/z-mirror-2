@@ -12,11 +12,6 @@
           <span class="shopping-list-item-col item-name">
             [x{{ shoppingItem.quantity }}] - {{ shoppingItem.name }}
           </span>
-
-          <!-- <small class="shopping-list-item-col item-quantity" v-if="shoppingItem.quantity > 1">
-            (x{{ shoppingItem.quantity }})
-          </small> -->
-
         </div>
       </div>
     </div>
@@ -58,16 +53,6 @@ export default {
           color: var(--primary-color);
         }
       }
-    }
-
-    &:after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 6rem;
-      background-image: linear-gradient(to top, black, transparent)
     }
   }
 </style>

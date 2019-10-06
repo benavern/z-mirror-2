@@ -5,7 +5,6 @@
         <span class="houres">{{ houres }}</span>
         <span :class="['separator', {'hidden': seconds % 2}]">:</span>
         <span class="minutes">{{ minutes }}</span>
-        <!-- <span class="seconds">{{ seconds }}</span> -->
       </div>
       <div class="date">{{ date }}</div>
     </div>
@@ -88,11 +87,14 @@ export default {
 
     .clock-seconds {
       --seconds-size: .25rem;
+
       position: absolute;
       top: 0;
       left: calc(50% - var(--seconds-size) / 2);
       height: 50%;
       padding: .2em 0;
+      transform: rotate(0deg);
+      transform-origin: bottom;
 
       &:before {
         content: '';
@@ -102,9 +104,6 @@ export default {
         height: calc(4 * var(--seconds-size));
         border-radius: var(--seconds-size);
       }
-
-      transform: rotate(0deg);
-      transform-origin: bottom;
     }
   }
 </style>

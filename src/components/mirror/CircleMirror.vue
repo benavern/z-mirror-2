@@ -5,12 +5,12 @@
     </div>
 
     <div class="meteo">
-      <weather class="circle weather" :weather="weather"></weather>
-      <forecast class="circle forecast" :forecast="forecast"></forecast>
+      <weather class="circle weather" :weather="weather" :period="period"></weather>
+      <forecast class="circle list forecast" :forecast="forecast"></forecast>
     </div>
 
     <div class="shopping-list">
-      <shopping-list class="circle" :shopping-list="shoppingList"></shopping-list>
+      <shopping-list class="circle list" :shopping-list="shoppingList"></shopping-list>
     </div>
   </div>
 </template>
@@ -30,7 +30,10 @@ export default {
     ShoppingList
   },
   data () {
-    return { updateMeteoInterval: null }
+    return {
+      updateMeteoInterval: null,
+      period: 'day'
+    }
   },
   computed: {
     weather () {
@@ -46,6 +49,12 @@ export default {
   methods: {
     updateMeteo () {
       this.$store.dispatch('meteo/fetchData')
+      this.updatePeriod()
+    },
+    updatePeriod () {
+      const nowH = new Date().getHours()
+      const isDay = nowH < 20 && nowH > 8
+      this.period = isDay ? 'day' : 'night'
     }
   },
   mounted () {
@@ -53,6 +62,9 @@ export default {
     clearInterval(this.updateMeteoInterval)
     const t = 1000 * 60 * 60 * 2 // (1000ms -> 1s) * (60s -> 1min) | (60min -> 1h) * 2 = 2h
     this.updateMeteoInterval = setInterval(this.updateMeteo, t)
+
+    // update the day part (day / night)
+    this.updatePeriod()
   },
   beforeDestroy () {
     clearInterval(this.updateMeteoInterval)
@@ -64,6 +76,7 @@ export default {
 
 #mirror {
     --padding: 2rem;
+    --circle-width: 15rem;
     --primary-color: #16a085;
 }
 
@@ -84,13 +97,25 @@ export default {
 
     .circle {
       position: relative;
-      width: 15rem;
-      height: 15rem;
+      width: var(--circle-width);
+      height: var(--circle-width);
       border: .15rem solid $light;
       border-radius: 50%;
       text-align: center;
       background-color: $black;
       overflow: hidden;
+
+      &.list {
+        &:after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: calc(var(--circle-width) / 2);
+          background-image: linear-gradient(to top, black 15%, transparent)
+        }
+      }
     }
 
     .clock {
@@ -106,8 +131,8 @@ export default {
 
       .forecast {
         position: absolute;
-        top: 8rem;
-        right: 11rem;
+        top: calc(var(--circle-width) * .5);
+        right: calc(var(--circle-width) * .75);
       }
     }
 

@@ -3,7 +3,7 @@
     <div class="weather-content">
       <div class="temperature">
         <div class="temp-item left">
-          <i :class="['wi', 'wi-fw', `wi-owm-${weather.weather[0].id}`, 'temp-icon']"></i>
+          <i :class="['wi', 'wi-fw', `wi-owm-${period}-${weather.weather[0].id}`, 'temp-icon']"></i>
         </div>
 
         <div class="temp-item right">
@@ -27,7 +27,7 @@
 <script>
 export default {
   name: 'defaultWeather',
-  props: ['weather']
+  props: ['weather', 'period']
 }
 </script>
 
