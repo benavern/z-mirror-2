@@ -12,13 +12,13 @@
             </option>
           </b-select>
 
-          <button class="button" @click.prevent="fullscreen" :disabled="!currentTheme">
-            <b-icon icon="fullscreen"></b-icon>
-          </button>
-
-          <button class="button" @click.prevent="toggleOrientation" :disabled="!currentTheme">
+          <button class="button control" @click.prevent="toggleOrientation" :disabled="!currentTheme">
             <b-icon v-if="orientation === 'landscape'" icon="phone-rotate-portrait"></b-icon>
             <b-icon v-if="orientation === 'portrait'" icon="phone-rotate-landscape"></b-icon>
+          </button>
+
+          <button class="button control" @click.prevent="fullscreen" :disabled="!currentTheme">
+            <b-icon icon="fullscreen"></b-icon>
           </button>
         </b-field>
       </div>
@@ -35,13 +35,15 @@
 <script>
 
 const themes = [
-  { name: 'Default', routeParam: 'default', component: 'default-mirror' }
+  { name: 'Default', routeParam: 'default', component: 'default-mirror' },
+  { name: 'Circle', routeParam: 'circle', component: 'circle-mirror' }
 ]
 
 export default {
   name: 'mirrorIndex',
   components: {
-    DefaultMirror: () => import('../../components/mirror/DefaultMirror.vue')
+    DefaultMirror: () => import('../../components/mirror/DefaultMirror.vue'),
+    CircleMirror: () => import('../../components/mirror/CircleMirror.vue')
   },
   data () {
     return {
@@ -140,14 +142,13 @@ export default {
     margin: 2rem auto;
     outline: 1.5rem solid $border;
 
-
     &.landscape {
       width: calc(var(--mirror-display-ratio) * 1440px);
       height: calc(var(--mirror-display-ratio) * 900px);
     }
 
     .mirror {
-      zoom: var(--mirror-display-ratio);
+      // zoom: var(--mirror-display-ratio);
       overflow: auto;
     }
   }
