@@ -112,7 +112,7 @@ export default {
       this.autocomplete.data = []
       if (this.autocomplete.name) {
         this.autocomplete.isFetching = true
-        this.$store.dispatch('meteo/fetchAutocompleteData', {name: this.autocomplete.name})
+        this.$store.dispatch('meteo/fetchAutocompleteData', { name: this.autocomplete.name })
           .then(() => {
             this.autocomplete.data = this.$store.getters['meteo/autocompleteData']
             this.autocomplete.isFetching = false

@@ -13,7 +13,7 @@ export default {
   },
   mutations: {
     setUser (state, user) {
-      state.local.user = {...user}
+      state.local.user = { ...user }
     },
     resetUser (state) {
       state.local.user = null

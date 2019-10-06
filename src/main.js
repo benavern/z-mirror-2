@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import Buefy from 'buefy'
 import store from './store'
-import 'buefy/lib/buefy.css'
+import 'buefy/dist/buefy.css'
 import '@mdi/font/css/materialdesignicons.css'
 import 'weather-icons2/css/weather-icons.min.css'
 import moment from 'moment'
@@ -16,7 +16,7 @@ moment.locale('fr')
 
 router.beforeEach((to, from, next) => {
   if (to.meta.authentication && !store.getters['user/isConnected']) {
-    next({path: '/admin/login', query: { to: to.path }})
+    next({ path: '/admin/login', query: { to: to.path } })
   } else {
     next()
   }

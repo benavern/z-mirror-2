@@ -28,7 +28,7 @@ export default {
     currentCityForecast: state => state.local.data.forecast
   },
   mutations: {
-    setAutocompleteData (state, {list}) {
+    setAutocompleteData (state, { list }) {
       Vue.set(state.local, 'autocompleteData', [...list])
     },
     resetAutocompleteData (state) {
@@ -37,15 +37,15 @@ export default {
     setDataWeather (state, payload) {
       Vue.set(state.local.data, 'weather', payload)
     },
-    setDataForecast (state, {list}) {
+    setDataForecast (state, { list }) {
       Vue.set(state.local.data, 'forecast', [...list])
     },
-    setCityCode (state, {code}) {
+    setCityCode (state, { code }) {
       state.db.cityCode = code
     }
   },
   actions: {
-    fetchAutocompleteData ({state, commit}, payload) {
+    fetchAutocompleteData ({ state, commit }, payload) {
       return fetch(`${state.local.api.baseUrl}find?appid=${state.local.api.key}&q=${encodeURIComponent(payload.name)}&mode=json&units=metric&type=like&lang=fr`)
         .then(response => response.json())
         .then(data => commit('setAutocompleteData', data))
@@ -54,17 +54,17 @@ export default {
     updateCityCode (context, payload) {
       return db.child('cityCode').set(payload.id)
     },
-    fetchWeather ({state, commit}) {
+    fetchWeather ({ state, commit }) {
       return fetch(`${state.local.api.baseUrl}weather?appid=${state.local.api.key}&id=${state.db.cityCode || defaultCityCode}&mode=json&units=metric&lang=fr`)
         .then(res => res.json())
         .then(weatherData => { commit('setDataWeather', weatherData) })
     },
-    fetchForecast ({state, commit}) {
+    fetchForecast ({ state, commit }) {
       return fetch(`${state.local.api.baseUrl}forecast/daily?appid=${state.local.api.key}&id=${state.db.cityCode || defaultCityCode}&mode=json&units=metric&cnt=4&lang=fr`)
         .then(res => res.json())
         .then(forecastData => { commit('setDataForecast', forecastData) })
     },
-    fetchData ({state, dispatch}) {
+    fetchData ({ state, dispatch }) {
       if (state.db.cityCode) {
         return Promise.all([ dispatch('fetchWeather'), dispatch('fetchForecast') ])
       } else {

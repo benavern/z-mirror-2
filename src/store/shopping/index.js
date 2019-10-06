@@ -42,7 +42,7 @@ export default {
     remove (context, key) {
       return db.child(key).remove()
     },
-    change (context, {key, ...newItemVal}) {
+    change (context, { key, ...newItemVal }) {
       return db.child(key).update(newItemVal)
     }
   }

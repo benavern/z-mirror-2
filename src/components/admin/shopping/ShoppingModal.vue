@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     createArray (nb = 0) {
-      return Array.apply(null, {length: nb}).map((val, i) => i + 1)
+      return Array.apply(null, { length: nb }).map((val, i) => i + 1)
     },
 
     submit () {

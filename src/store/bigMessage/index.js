@@ -46,7 +46,7 @@ export default {
     remove (context, key) {
       return db.child(key).remove()
     },
-    change (context, {key, ...newItemVal}) {
+    change (context, { key, ...newItemVal }) {
       newItemVal.start = newItemVal.start.getTime()
       newItemVal.end = newItemVal.end.getTime()
       return db.child(key).update(newItemVal)

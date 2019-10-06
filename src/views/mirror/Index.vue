@@ -30,7 +30,7 @@
 <script>
 
 const themes = [
-  {name: 'Default', routeParam: 'default', component: 'default-mirror'}
+  { name: 'Default', routeParam: 'default', component: 'default-mirror' }
 ]
 
 export default {
