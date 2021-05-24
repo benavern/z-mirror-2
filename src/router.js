@@ -44,7 +44,7 @@ export default new Router({
             displayName: 'Liste de courses',
             displayInHeader: true,
             authentication: true,
-            icon: 'basket-fill',
+            icon: 'cart',
             iconType: 'is-primary',
             subtitle: null,
             description: 'Pour ne jamais se retrouver le frigo vide.'

@@ -35,16 +35,13 @@
 <script>
 
 const themes = [
-  { name: 'Default', routeParam: 'default', component: 'default-mirror' },
-  { name: 'Circle', routeParam: 'circle', component: 'circle-mirror' }
+  { name: 'Default', routeParam: 'default', component: () => import('@/components/mirror/DefaultMirror.vue') },
+  { name: 'Circle', routeParam: 'circle', component: () => import('@/components/mirror/CircleMirror.vue') },
+  { name: 'Modern', routeParam: 'modern', component: () => import('@/components/mirror/ModernMirror.vue') }
 ]
 
 export default {
   name: 'mirrorIndex',
-  components: {
-    DefaultMirror: () => import('@/components/mirror/DefaultMirror.vue'),
-    CircleMirror: () => import('@/components/mirror/CircleMirror.vue')
-  },
   data () {
     return {
       themes,
