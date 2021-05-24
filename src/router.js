@@ -95,6 +95,7 @@ export default new Router({
         {
           path: 'login',
           component: Login,
+          name: 'login',
           meta: {
             displayName: 'Connection',
             displayInHeader: false,

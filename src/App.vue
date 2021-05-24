@@ -20,7 +20,11 @@ export default {
           // User is signed in.
           this.$store.dispatch('user/login', user)
             .then(() => {
-              this.$router.replace(this.$route.query.to || '/admin')
+              if(this.$route.query.to) {
+                this.$router.replace(this.$route.query.to)
+              } else if(this.$route?.name === 'login') {
+                this.$router.replace('/admin')
+              }
             })
         } else {
           // User is signed out.
