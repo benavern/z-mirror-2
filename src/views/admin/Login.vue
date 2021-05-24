@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { firebaseAuth } from '../../firebase.js'
+import { firebaseAuth } from '@/firebase.js'
 
 export default {
   name: 'login',
@@ -31,13 +31,13 @@ export default {
         .catch(this.fail)
     },
 
-    fail (reason) {
+    fail () {
       // reset form
       this.email = ''
       this.password = ''
 
       // notify
-      this.$toast.open({
+      this.$buefy.toast.open({
         message: `Mauvais mot de pass !`,
         position: 'is-bottom',
         type: 'is-danger'

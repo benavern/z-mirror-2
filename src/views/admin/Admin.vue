@@ -1,27 +1,15 @@
 <template>
-  <div id="admin">
-    <navigation />
-    <div class="container">
-      <router-view/>
-    </div>
+  <div class="container">
+    <router-view/>
   </div>
 </template>
 
 <script>
-import Navigation from '../../components/admin/Navigation'
 
 export default {
-  name: 'admin',
-  components: {
-    Navigation
-  }
+  name: 'admin'
 }
 </script>
-<style lang="scss" scoped>
-  #admin {
-    padding-top: 3.25rem;
-  }
-</style>
 
 <style lang="scss">
   .corner-button {

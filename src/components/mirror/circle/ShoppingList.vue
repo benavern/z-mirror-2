@@ -49,7 +49,7 @@ export default {
       .shopping-list-item {
         line-height: 1rem;
 
-        /deep/ .shopping-list-item-icon {
+        ::v-deep .shopping-list-item-icon {
           color: var(--primary-color);
         }
       }

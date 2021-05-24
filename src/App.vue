@@ -1,14 +1,18 @@
 <template>
-  <div id="app">
+  <div id="z-mirror-app">
+    <Navigation />
+
     <router-view/>
   </div>
 </template>
 
 <script>
 import { firebaseAuth } from './firebase.js'
+import Navigation from '@/components/Navigation.vue'
 
 export default {
   name: 'app',
+  components: { Navigation },
   mounted () {
     firebaseAuth
       .onAuthStateChanged(user => {
@@ -28,3 +32,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+#z-mirror-app {
+  padding-top: 3.25rem;
+}
+</style>

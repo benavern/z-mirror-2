@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { firebaseDb } from '../../firebase'
+import { firebaseDb } from '@/firebase'
 const db = firebaseDb.ref('meteo')
 
 const defaultCityCode = 2988507
@@ -13,7 +13,7 @@ export default {
     local: {
       api: {
         baseUrl: 'https://api.openweathermap.org/data/2.5/',
-        key: process.env.VUE_APP_OPENWEATHERMAP_API_KEY
+        key: import.meta.env.VITE_OPENWEATHERMAP_API_KEY
       },
       autocompleteData: [],
       data: {

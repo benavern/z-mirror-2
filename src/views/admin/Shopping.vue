@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import shoppingModal from '../../components/admin/shopping/ShoppingModal'
+import shoppingModal from '@/components/admin/shopping/ShoppingModal.vue'
 
 export default {
   name: 'Shopping',

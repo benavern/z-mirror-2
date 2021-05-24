@@ -43,7 +43,7 @@
 
 <script>
 import moment from 'moment'
-import BigMessageModal from '../../components/admin/bigMessage/bigMessageModal'
+import BigMessageModal from '@/components/admin/bigMessage/bigMessageModal.vue'
 
 export default {
   name: 'big-message',

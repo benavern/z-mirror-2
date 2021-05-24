@@ -22,12 +22,12 @@
 </template>
 
 <script>
-import Clock from './default/Clock'
-import Weather from './default/Weather'
-import Forecast from './default/Forecast'
-import ShoppingList from './default/ShoppingList'
-import TodoList from './default/TodoList'
-import BigMessage from './default/BigMessage'
+import Clock from './default/Clock.vue'
+import Weather from './default/Weather.vue'
+import Forecast from './default/Forecast.vue'
+import ShoppingList from './default/ShoppingList.vue'
+import TodoList from './default/TodoList.vue'
+import BigMessage from './default/BigMessage.vue'
 
 export default {
   name: 'defaultMirror',
@@ -72,8 +72,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import '~bulma/sass/utilities/initial-variables';
-  @import '~bulma/sass/utilities/derived-variables';
+  @import 'bulma/sass/utilities/initial-variables';
+  @import 'bulma/sass/utilities/derived-variables';
 
   #mirror {
     padding: 1.5rem;

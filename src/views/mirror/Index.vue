@@ -42,8 +42,8 @@ const themes = [
 export default {
   name: 'mirrorIndex',
   components: {
-    DefaultMirror: () => import('../../components/mirror/DefaultMirror.vue'),
-    CircleMirror: () => import('../../components/mirror/CircleMirror.vue')
+    DefaultMirror: () => import('@/components/mirror/DefaultMirror.vue'),
+    CircleMirror: () => import('@/components/mirror/CircleMirror.vue')
   },
   data () {
     return {
@@ -94,7 +94,7 @@ export default {
       }
 
       this.getThemeFromRouteParam(to.routeParam)
-        .then(theme => {
+        .then(() => {
           this.$router.push(`/mirror/${to.routeParam}`)
         })
         .catch(err => {
@@ -107,7 +107,7 @@ export default {
 
 <style lang="scss">
 .mirror-container {
-  @import '~bulma/sass/utilities/initial-variables';
+  @import 'bulma/sass/utilities/initial-variables';
 
   --mirror-display-ratio: 0.25;
 
@@ -130,8 +130,8 @@ export default {
 </style>
 
 <style lang="scss" scoped>
-@import '~bulma/sass/utilities/initial-variables';
-@import '~bulma/sass/utilities/derived-variables';
+@import 'bulma/sass/utilities/initial-variables';
+@import 'bulma/sass/utilities/derived-variables';
 
 .mirror-container {
   // only when NOT fullscreen

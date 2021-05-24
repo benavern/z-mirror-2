@@ -58,7 +58,7 @@ export default new Router({
             displayName: 'Météo',
             displayInHeader: true,
             authentication: true,
-            icon: 'weather-partlycloudy',
+            icon: 'weather-partly-cloudy',
             iconType: 'is-warning',
             subtitle: 'En direct et prévisions',
             description: 'Parce qu\'en T-shirt sous la pluie c\'est pas marrant!'

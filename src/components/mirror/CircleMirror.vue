@@ -83,8 +83,8 @@ export default {
 </style>
 
 <style lang="scss" scoped>
-  @import '~bulma/sass/utilities/initial-variables';
-  @import '~bulma/sass/utilities/derived-variables';
+  @import 'bulma/sass/utilities/initial-variables';
+  @import 'bulma/sass/utilities/derived-variables';
 
   // external font
   @import url('https://fonts.googleapis.com/css?family=Manjari');

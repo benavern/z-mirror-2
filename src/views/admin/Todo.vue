@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import TodoModal from '../../components/admin/todo/todoModal'
+import TodoModal from '@/components/admin/todo/todoModal.vue'
 
 export default {
   name: 'todo',

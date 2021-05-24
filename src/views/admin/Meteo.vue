@@ -161,7 +161,7 @@ export default {
   }
 
   .selected-city-card {
-    .refresh-button /deep/ .spin {
+    .refresh-button ::v-deep .spin {
       animation: spin 1s infinite linear;
     }
 

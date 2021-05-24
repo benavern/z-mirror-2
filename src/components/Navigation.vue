@@ -3,7 +3,7 @@
     <div class="container">
       <div class="navbar-brand">
         <router-link to="/" class="navbar-item">
-          <img src="../../assets/icon.png" alt="Z-mirror, a mirror with super power">
+          <img src="@/assets/icon.png" alt="Z-mirror, a mirror with super power">
         </router-link>
 
         <div class="navbar-item page-title">
@@ -12,14 +12,14 @@
           </h6>
         </div>
 
-        <a class="navbar-burger" @click.prevent="toggleMenu">
+        <a class="navbar-burger" @click.prevent="toggleMenu" v-if="userConnected">
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
         </a>
       </div>
 
-      <div :class="['navbar-menu', {'is-active': menuVisible}]" @click="toggleMenu">
+      <div :class="['navbar-menu', {'is-active': menuVisible}]" @click="toggleMenu" v-if="userConnected">
         <div class="navbar-end">
 
           <router-link v-for="route in routes" :key="route.path"
@@ -47,7 +47,8 @@
 </template>
 
 <script>
-import { firebaseAuth } from '../../firebase.js'
+import { firebaseAuth } from '@/firebase.js'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'navigation',
@@ -72,7 +73,10 @@ export default {
   computed: {
     currentRouteName () {
       return this.$route.meta.displayName || 'Z-Mirror 2'
-    }
+    },
+    ...mapGetters({
+      userConnected: 'user/isConnected'
+    })
   },
   methods: {
     toggleMenu () {
@@ -85,7 +89,7 @@ export default {
         this.$router.go('/admin/login')
       }).catch(() => {
         // An error happened.
-        this.$toast.open({
+        this.$buefy.toast.open({
           message: `Une erreur est survenue`,
           position: 'is-bottom',
           type: 'is-danger'

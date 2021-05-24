@@ -35,14 +35,14 @@ export default {
       pages: [
         {
           path: '/admin',
-          icon: 'settings',
+          icon: 'cog-outline',
           iconType: 'is-primary',
           title: 'Administration',
           subtitle: 'Réglages de l\'application et du miroir',
           content: 'Attention, il faut se connecter pour y accéder!'
         },
         {
-          path: '/mirror',
+          path: "/mirror",
           icon: 'window-open',
           iconType: 'is-info',
           title: 'Miroir',

@@ -71,7 +71,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.add-item-modal /deep/ .select{
+.add-item-modal ::v-deep .select{
   width: 70px;
 }
 </style>
