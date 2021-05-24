@@ -8,13 +8,13 @@
 </template>
 
 <script>
-import moment from 'moment'
+import dayjs from 'dayjs'
 
 export default {
   name: 'defaultBigMessage',
   props: ['bigMessageList'],
   data () {
-    let now = moment()
+    let now = dayjs()
     return {
       now,
       refreshInterval: null
@@ -24,12 +24,12 @@ export default {
     bigMessageListFiltered () {
       return this.bigMessageList.filter(item => {
         const start = {
-          h: moment(item.start).hour(),
-          m: moment(item.start).minute()
+          h: dayjs(item.start).hour(),
+          m: dayjs(item.start).minute()
         }
         const end = {
-          h: moment(item.end).hour(),
-          m: moment(item.end).minute()
+          h: dayjs(item.end).hour(),
+          m: dayjs(item.end).minute()
         }
         const now = {
           h: this.now.hour(),
@@ -53,13 +53,13 @@ export default {
   },
   methods: {
     updateNow () {
-      this.now = moment()
+      this.now = dayjs()
     }
   },
   mounted () {
     // refresh date regularily
     clearInterval(this.refreshInterval)
-    const t = 1000 // (1000ms -> 1s)
+    const t = 1000 * 60
     this.refreshInterval = setInterval(this.updateNow, t)
   },
   beforeDestroy () {

@@ -6,13 +6,14 @@ import store from './store'
 import 'buefy/dist/buefy.css'
 import '@mdi/font/css/materialdesignicons.css'
 import 'weather-icons2/css/weather-icons.min.css'
-import moment from 'moment'
+import dayjs from 'dayjs'
+import 'dayjs/locale/fr'
+
+dayjs.locale('fr')
 
 Vue.use(Buefy)
 
 Vue.config.productionTip = false
-
-moment.locale('fr')
 
 router.beforeEach((to, from, next) => {
   if (to.meta.authentication && !store.getters['user/isConnected']) {

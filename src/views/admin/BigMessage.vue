@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import moment from 'moment'
+import dayjs from 'dayjs'
 import BigMessageModal from '@/components/admin/bigMessage/bigMessageModal.vue'
 
 export default {
@@ -107,7 +107,7 @@ export default {
   filters: {
     time (val) {
       if (!val) return 'ERROR!!!'
-      return moment(val).format('HH:mm')
+      return dayjs(val).format('HH:mm')
     }
   }
 }

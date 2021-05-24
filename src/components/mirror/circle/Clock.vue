@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import moment from 'moment'
+import dayjs from 'dayjs'
 
 export default {
   name: 'defaultClock',
@@ -37,12 +37,12 @@ export default {
   },
   methods: {
     updateClock () {
-      this.now = moment()
+      this.now = dayjs()
       this.houres = this.now.format('HH')
       this.minutes = this.now.format('mm')
       this.seconds = this.now.format('ss')
       this.date = this.now.format('dddd D MMM YYYY')
-      this.secondsRound = this.now.seconds() / 60 * 360 // % of a clock round
+      this.secondsRound = this.now.second() / 60 * 360 // % of a clock round
     },
     startClock () {
       this.clockTimer = setInterval(this.updateClock, 1000)

@@ -27,14 +27,14 @@
 </template>
 
 <script>
-import moment from 'moment'
+import dayjs from 'dayjs'
 
 export default {
   name: 'defaultForecast',
   props: ['forecast'],
   methods: {
     getDay (dt = 0) {
-      return moment.unix(dt).format('dddd')
+      return dayjs.unix(dt).format('dddd')
     }
   }
 }

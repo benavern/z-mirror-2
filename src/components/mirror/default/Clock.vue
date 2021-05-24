@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import moment from 'moment'
+import dayjs from 'dayjs'
 
 export default {
   name: 'defaultClock',
@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     updateClock () {
-      this.now = moment()
+      this.now = dayjs()
       this.houres = this.now.format('HH')
       this.minutes = this.now.format('mm')
       this.seconds = this.now.format('ss')

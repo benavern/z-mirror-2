@@ -92,7 +92,7 @@
 
 <script>
 import debounce from 'lodash.debounce'
-import moment from 'moment'
+import dayjs from 'dayjs'
 
 export default {
   data () {
@@ -124,7 +124,7 @@ export default {
       this.$store.dispatch('meteo/updateCityCode', option)
     },
     getDay (dt = 0) {
-      return moment.unix(dt).format('dddd')
+      return dayjs.unix(dt).format('dddd')
     },
     refreshCurrentCityData () {
       this.refreshing = true
