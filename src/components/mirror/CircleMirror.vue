@@ -86,9 +86,6 @@ export default {
   @import 'bulma/sass/utilities/initial-variables';
   @import 'bulma/sass/utilities/derived-variables';
 
-  // external font
-  @import url('https://fonts.googleapis.com/css?family=Manjari');
-
   #mirror {
     padding: var(--padding);
     color: $light;

@@ -72,7 +72,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;700&display=swap');
 @import 'bulma/sass/utilities/initial-variables';
 @import 'bulma/sass/utilities/derived-variables';
 
