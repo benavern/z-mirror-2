@@ -6,18 +6,21 @@
           <b-select placeholder="Selectionner un thème" v-model="selectedTheme" @input="updateTheme" expanded>
             <option value="">-- Aucun --</option>
 
-            <option v-for="(option, index) in themes" :key="index"
-              :value="option">
-              {{ option.name }}
+            <option v-for="(option, themeName) in themes" :key="themeName"
+              :value="themeName">
+              {{ option.displayName }}
             </option>
           </b-select>
 
-          <button class="button control" @click.prevent="toggleOrientation" :disabled="!currentTheme">
+          <button
+            class="button control"
+            @click.prevent="toggleOrientation"
+            :disabled="!selectedTheme">
             <b-icon v-if="orientation === 'landscape'" icon="phone-rotate-portrait"></b-icon>
-            <b-icon v-if="orientation === 'portrait'" icon="phone-rotate-landscape"></b-icon>
+            <b-icon v-if="orientation === 'portrait'" icon="phone-rotate-portrait"></b-icon>
           </button>
 
-          <button class="button control" @click.prevent="fullscreen" :disabled="!currentTheme">
+          <button class="button control" @click.prevent="fullscreen" :disabled="!selectedTheme">
             <b-icon icon="fullscreen"></b-icon>
           </button>
         </b-field>
@@ -25,8 +28,8 @@
     </div>
 
     <div class="section">
-      <div class="mirror-container" ref="mirrorContainer" v-if="selectedTheme && currentTheme" :class="{'landscape': orientation === 'landscape'}">
-        <div class="mirror" :is="currentTheme.component" />
+      <div class="mirror-container" ref="mirrorContainer" v-if="selectedTheme" :class="{'landscape': orientation === 'landscape'}">
+        <div class="mirror" :is="themes[selectedTheme].component" />
       </div>
     </div>
   </div>
@@ -34,69 +37,69 @@
 
 <script>
 
-const themes = [
-  { name: 'Default', routeParam: 'default', component: () => import('@/components/mirror/DefaultMirror.vue') },
-  { name: 'Circle', routeParam: 'circle', component: () => import('@/components/mirror/CircleMirror.vue') },
-  { name: 'Modern', routeParam: 'modern', component: () => import('@/components/mirror/ModernMirror.vue') }
-]
+const themes = {
+  default: { displayName: 'Default', component: () => import('@/components/mirror/DefaultMirror.vue') },
+  circle: { displayName: 'Circle', component: () => import('@/components/mirror/CircleMirror.vue') },
+  modern: { displayName: 'Modern', component: () => import('@/components/mirror/ModernMirror.vue') }
+}
+
+const orientations = {
+  portrait: 'portrait',
+  landscape: 'landscape'
+}
 
 export default {
   name: 'mirrorIndex',
+
   data () {
     return {
       themes,
-      currentTheme: null,
       selectedTheme: null,
       orientation: 'portrait'
     }
   },
-  created () {
-    this.getThemeFromRouteParam(this.$route.params.theme)
-      .then(theme => {
-        this.currentTheme = theme
-        this.selectedTheme = theme
-      })
-      .catch(() => {
-        this.$router.replace('/mirror')
-      })
-  },
-  beforeRouteUpdate (to, from, next) {
-    this.getThemeFromRouteParam(to.params.theme)
-      .then(theme => {
-        this.currentTheme = theme
-        next()
-      })
-      .catch(err => {
-        next(err)
-      })
-  },
+
   methods: {
     fullscreen () {
+      if(!this.$refs.mirrorContainer) return
       this.$refs.mirrorContainer.webkitRequestFullscreen()
     },
-    toggleOrientation () {
-      this.orientation = this.orientation === 'portrait' ? 'landscape' : 'portrait'
-    },
-    getThemeFromRouteParam (param) {
-      return new Promise((resolve, reject) => {
-        const theme = themes.find(theme => theme.routeParam === param)
-        if (theme || !param) resolve(theme)
-        else reject(new Error(`Le theme (${param}) n'existe pas`))
+
+    updateTheme (theme) {
+      this.$router.push({
+        name: 'mirror',
+        params: { theme },
+        query: { orientation: this.orientation }
       })
     },
-    updateTheme (to) {
-      if (!to) {
-        this.$router.push('/mirror')
-        return
-      }
 
-      this.getThemeFromRouteParam(to.routeParam)
-        .then(() => {
-          this.$router.push(`/mirror/${to.routeParam}`)
-        })
-        .catch(err => {
-          throw err
-        })
+    toggleOrientation() {
+      const orientation = this.orientation === orientations.landscape
+        ? orientations.portrait
+        : orientations.landscape
+
+      this.$router.push({
+        name: 'mirror',
+        params: { theme: this.selectedTheme },
+        query: { orientation }
+      })
+    }
+  },
+
+  watch: {
+    $route: {
+      handler(newValue) {
+        const { params: { theme }, query: { orientation } } = newValue
+
+        this.selectedTheme = themes[theme]
+          ? theme
+          : null
+
+        this.orientation = Object.values(orientations).includes(orientation)
+          ? orientation
+          : orientations.portrait
+      },
+      immediate: true
     }
   }
 }
@@ -145,7 +148,7 @@ export default {
     }
 
     .mirror {
-      // zoom: var(--mirror-display-ratio);
+      zoom: var(--mirror-display-ratio);
       overflow: auto;
     }
   }
