@@ -59,7 +59,8 @@ export default {
     text-align: right;
 
     .time {
-      font-size: 6rem;
+      font-size: 8rem;
+      font-weight: lighter;
     }
 
     .date {

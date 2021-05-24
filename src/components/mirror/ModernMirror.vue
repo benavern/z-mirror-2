@@ -4,11 +4,11 @@
       <Clock />
     </div>
 
-    <div class="mirror-line">
+    <div class="mirror-line align-center">
       <Weather :weather="weather" />
     </div>
 
-    <div class="mirror-line justify-center">
+    <div class="mirror-line justify-center align-end">
       <Features :shopping-list="shoppingList"/>
     </div>
   </div>
@@ -83,7 +83,6 @@ export default {
   color: $light;
   background-color: $black;
   font-family: Poppins, sans-serif;
-  font-weight: lighter;
 
   * {
     line-height: 1;
@@ -92,6 +91,7 @@ export default {
   .mirror-line {
     display: flex;
     justify-content: space-between;
+    flex: 1;
 
 
     &.justify-end {
@@ -100,6 +100,14 @@ export default {
 
     &.justify-center {
       justify-content: space-around;
+    }
+
+    &.align-center {
+      align-items: center;
+    }
+
+    &.align-end {
+      align-items: flex-end;
     }
   }
 }

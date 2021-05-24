@@ -50,7 +50,6 @@ export default {
 @import 'bulma/sass/utilities/derived-variables';
 
 #features {
-
   .feature-item {
     position: relative;
     display: inline-block;
@@ -72,7 +71,6 @@ export default {
       padding: 0 .8rem;
       border-radius: 1.25rem;
       background: $danger;
-      font-weight: bold;
       font-size: 1.5rem;
 
       &.list-ok {

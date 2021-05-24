@@ -57,28 +57,29 @@ export default {
   .temperature {
     display: flex;
     justify-content: flex-end;
-    gap: 1rem;
+    gap: 2rem;
 
     .temp-item {
       text-align: center;
       font-size: 1.5rem;
 
       .temp-icon {
-        font-size: 5rem;
+        font-size: 6rem;
       }
 
       .temp-description {
-        margin-top: 1rem;
+        margin-top: 2rem;
       }
 
       .temp-text {
-        font-size: 5rem;
+        font-size: 6rem;
+        font-weight: lighter;
         margin-left: 1rem;
       }
 
       .temp-extrems {
         text-align: left;
-        margin-top: 1rem;
+        margin-top: 2rem;
 
         .temp-extrems-item + .temp-extrems-item {
           margin-left: 1rem;
